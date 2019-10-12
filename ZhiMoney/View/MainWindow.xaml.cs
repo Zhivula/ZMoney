@@ -23,6 +23,7 @@ namespace ZhiMoney
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ViewModel.MainWindowViewModel();
         }
     }
 }
