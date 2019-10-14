@@ -12,7 +12,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" x:Name="ConstGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="*"/>
@@ -32,7 +32,7 @@
             </Grid>
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
-                    <Button Margin="2 0 2 0" Command="{Binding OpenDohodCommand}">
+                    <Button Margin="2 0 2 0" Command="{Binding OpenDohodCommand}" MinWidth="120">
                         <Border BorderBrush="#dcdcdc">
                             <StackPanel Orientation="Horizontal" Width="140">
                                 <materialDesign:PackIcon Kind="TrendingUp" Height="20" Width="20" HorizontalAlignment="Left" Foreground="White"/>
@@ -42,6 +42,14 @@
                     </Button>
                     <Button Margin="2 0 2 0" Command="{Binding OpenDohodCommand}">
                         <Border BorderBrush="#dcdcdc">
+                            <StackPanel Orientation="Horizontal" Width="140">
+                                <materialDesign:PackIcon Kind="TrendingUp" Height="20" Width="20" HorizontalAlignment="Left" Foreground="White"/>
+                                <TextBlock Text="ДОХОД" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                    <Button Margin="2 0 2 0" Command="{Binding OpenDohodCommand}">
+                        <Border BorderBrush="#dcdcdc" Padding="0" Margin="0">
                             <StackPanel Orientation="Horizontal" Width="140">
                                 <materialDesign:PackIcon Kind="TrendingDown" Height="20" Width="20" HorizontalAlignment="Left" Foreground="White"/>
                                 <TextBlock Text="РАСХОД" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
@@ -61,7 +69,7 @@
         </Grid>
 
 
-        <Grid Grid.Row="1" x:Name="bottomGrid">
+        <Grid Grid.Row="1" x:Name="ChangingGrid">
             
         </Grid>
     </Grid>
