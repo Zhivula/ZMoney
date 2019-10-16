@@ -44,25 +44,45 @@ namespace ZhiMoney.ViewModel
         private string nameUser;
         private string surnameUser;
 
+        /// <summary>
+        /// Имя пользователя.
+        /// </summary>
         public string NameUser
         {
             get => nameUser;
             set
             {
-                nameUser = value;
-                OnPropertyChanged(nameof(NameUser));
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    nameUser = value;
+                    OnPropertyChanged(nameof(NameUser));
+                }
+                else
+                {
+                    MessageBox.Show("Было введено пустое значение");
+                }
             }
         }
+        /// <summary>
+        /// Фамилия пользователя.
+        /// </summary>
         public string SurnameUser
         {
             get => surnameUser;
             set
             {
-                surnameUser = value;
-                OnPropertyChanged(nameof(SurnameUser));
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    surnameUser = value;
+                    OnPropertyChanged(nameof(SurnameUser));
+                }
+                else
+                {
+                    MessageBox.Show("Было введено пустое значение");
+                }
             }
         }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
