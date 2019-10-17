@@ -34,5 +34,29 @@ namespace ZhiMoney.Properties {
                 this["PathPhotoUser"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NameUser {
+            get {
+                return ((string)(this["NameUser"]));
+            }
+            set {
+                this["NameUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SurnameUser {
+            get {
+                return ((string)(this["SurnameUser"]));
+            }
+            set {
+                this["SurnameUser"] = value;
+            }
+        }
     }
 }
