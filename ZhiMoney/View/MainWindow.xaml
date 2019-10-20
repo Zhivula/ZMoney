@@ -32,7 +32,7 @@
             </Grid>
             <Grid Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
-                    <Button Margin="2 0 2 0" Command="{Binding OpenDohodCommand}" MinWidth="120">
+                    <Button Margin="2 0 2 0" Command="{Binding OpenIncomeCommand}" MinWidth="120">
                         <Border BorderBrush="#dcdcdc">
                             <StackPanel Orientation="Horizontal" Width="140">
                                 <materialDesign:PackIcon Kind="TrendingUp" Height="20" Width="20" HorizontalAlignment="Left" Foreground="White"/>
@@ -40,7 +40,7 @@
                             </StackPanel>
                         </Border>
                     </Button>
-                    <Button Margin="2 0 2 0" Command="{Binding OpenDohodCommand}">
+                    <Button Margin="2 0 2 0" Command="{Binding OpenExpenseCommand}">
                         <Border BorderBrush="#dcdcdc">
                             <StackPanel Orientation="Horizontal" Width="140">
                                 <materialDesign:PackIcon Kind="TrendingUp" Height="20" Width="20" HorizontalAlignment="Left" Foreground="White"/>
@@ -48,7 +48,7 @@
                             </StackPanel>
                         </Border>
                     </Button>
-                    <Button Margin="2 0 2 0" Command="{Binding OpenDohodCommand}">
+                    <Button Margin="2 0 2 0" Command="{Binding OpenIncomeCommand}">
                         <Border BorderBrush="#dcdcdc" Padding="0" Margin="0">
                             <StackPanel Orientation="Horizontal" Width="140">
                                 <materialDesign:PackIcon Kind="TrendingDown" Height="20" Width="20" HorizontalAlignment="Left" Foreground="White"/>
