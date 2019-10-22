@@ -101,7 +101,7 @@
                         </Grid>
                         <Grid Grid.Row="1">
                             <Label Content="Сумма (р.)" Foreground="White" FontSize="12"  Margin="5 5 0 0"/>
-                        <TextBox Text="{Binding Summa,UpdateSourceTrigger=PropertyChanged}" FontSize="16" Padding="3 0 0 0" x:Name="IncomeSumma" Background="White" VerticalAlignment="Top" Margin="10 25 10 0" Height="26">
+                        <TextBox Text="{Binding Summa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="16" Padding="3 0 0 0" x:Name="IncomeSumma" Background="White" VerticalAlignment="Top" Margin="10 25 10 0" Height="26">
                                 <TextBox.Template>
                                     <ControlTemplate>
                                         <Border CornerRadius="5"  BorderThickness="1" BorderBrush="#FF468AFF" Background="White">

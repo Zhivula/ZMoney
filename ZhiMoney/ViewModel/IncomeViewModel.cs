@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using ZhiMoney.Model;
 
@@ -13,14 +15,24 @@ namespace ZhiMoney.ViewModel
     {
         private string name;
         private float summa;
-
+        private bool canNameRecord;
+        private bool canSummaRecord;
 
         public string Name
         {
             get => name;
             set
             {
-                name = value;
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    name = value;
+                    canNameRecord = true;
+                }
+                else
+                {
+                    canNameRecord = false;
+                    MessageBox.Show("Попытка ввести пустую строку.");
+                }
                 OnPropertyChanged(nameof(Name));
             }
         }
@@ -29,22 +41,15 @@ namespace ZhiMoney.ViewModel
             get => summa;
             set
             {
-                summa = value;
+                base.ParseSummaToSingle(value.ToString(),out summa,out canSummaRecord);
                 OnPropertyChanged(nameof(Summa));
             }
         }
-        public new ICommand AddRecord => new DelegateCommand(
-                o =>
-                {
-                    base.AddRecord(Name, Summa);
-                },
-                c =>
-                {
-                    //здесь нужна нормальная проверка, а не true
-                    //!string.IsNullOrWhiteSpace(Name) && Summa != null
-                    return true;
-                });
-
+        public new ICommand AddRecord => new DelegateCommand(o =>
+        {
+            if (canNameRecord && canSummaRecord) base.AddRecord(Name, Summa);
+            else MessageBox.Show("Некорректные данные.");
+        });
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string name)

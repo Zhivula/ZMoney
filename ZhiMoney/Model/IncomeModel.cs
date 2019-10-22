@@ -15,7 +15,7 @@ namespace ZhiMoney.Model
         /// </summary>
         /// <param name="name"></param>
         /// <param name="summa"></param>
-        public void AddRecord(string name, float summa)
+        protected void AddRecord(string name, float summa)
         {
             using (var context = new MyDbContext())
             {
@@ -30,5 +30,27 @@ namespace ZhiMoney.Model
             }
             MessageBox.Show("Запись успешно внесена!");
         }
+        /// <summary>
+        /// Обработка входящих данных.
+        /// Попытка преобразовать входящие данные в тип float (он же и Single)
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="result"></param>
+        /// <param name="canSummaRecord"></param>
+        protected void ParseSummaToSingle(string o, out float result,out bool canSummaRecord)
+        {
+            if (float.TryParse(o.ToString(), out result))
+            {
+                result = float.Parse(o);
+                canSummaRecord = true;
+            }
+            else
+            {
+                canSummaRecord = false;
+                MessageBox.Show("Неудалось выполнить преобразование.");
+            }
+
+        }
+
     }
 }
