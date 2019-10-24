@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -50,11 +51,12 @@ namespace ZhiMoney.ViewModel
             if (canNameRecord && canSummaRecord) base.AddRecord(Name, Summa);
             else MessageBox.Show("Некорректные данные.");
         });
-
+        #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+        #endregion
     }
 }

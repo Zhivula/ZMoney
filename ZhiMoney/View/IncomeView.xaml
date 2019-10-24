@@ -45,7 +45,13 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <Label Content="Выбор линий" HorizontalAlignment="Left" Margin="5 5 0 0" VerticalAlignment="Top" Foreground="Gray" FontSize="12"/>
-                        <ComboBox x:Name="VariantLineComboBox" VerticalAlignment="Top" Margin="10 25 10 0" Background="#7986CB" Foreground="#1A237E" FontSize="12" BorderThickness="0"/>
+                        <ComboBox x:Name="VariantLineComboBox" VerticalAlignment="Top" Margin="10 25 10 0" Background="#7986CB" Foreground="#1A237E" FontSize="12" BorderThickness="0">
+                            <TextBlock>LG Nexus 5X</TextBlock>
+                            <TextBlock>Huawai Nexus 6P</TextBlock>
+                            <TextBlock>iPhone 6S</TextBlock>
+                            <TextBlock>iPhone 6S Plus</TextBlock>
+                            <TextBlock>Microsoft Lumia 950</TextBlock>
+                        </ComboBox>
                     </Grid>
                     <Grid Grid.Row="1"><!--БЛОК ОБОЗНАЧЕНИЙ И ПОЯСНЕНИЙ ДЛЯ ГРАФИКА-->
                         <StackPanel Orientation="Vertical">
@@ -89,7 +95,7 @@
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <Label Content="Источник" Foreground="White" FontSize="12" Margin="5 5 0 0"/>
-                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontSize="16" Padding="3 0 0 0" x:Name="IncomeName" Background="White" VerticalAlignment="Top" Margin="10 25 10 0" Height="26">
+                        <TextBox Text="{Binding Name}" FontSize="16" Padding="3 0 0 0" x:Name="IncomeName" Background="White" VerticalAlignment="Top" Margin="10 25 10 0" Height="26">
                                 <TextBox.Template>
                                     <ControlTemplate>
                                         <Border CornerRadius="5"  BorderThickness="1" BorderBrush="#FF468AFF" Background="White">
@@ -101,7 +107,7 @@
                         </Grid>
                         <Grid Grid.Row="1">
                             <Label Content="Сумма (р.)" Foreground="White" FontSize="12"  Margin="5 5 0 0"/>
-                        <TextBox Text="{Binding Summa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="16" Padding="3 0 0 0" x:Name="IncomeSumma" Background="White" VerticalAlignment="Top" Margin="10 25 10 0" Height="26">
+                        <TextBox Text="{Binding Summa}"  FontSize="16" Padding="3 0 0 0" x:Name="IncomeSumma" Background="White" VerticalAlignment="Top" Margin="10 25 10 0" Height="26">
                                 <TextBox.Template>
                                     <ControlTemplate>
                                         <Border CornerRadius="5"  BorderThickness="1" BorderBrush="#FF468AFF" Background="White">
