@@ -16,7 +16,7 @@ namespace ZhiMoney.ViewModel
             OpenExpenseCommand = new DelegateCommand(o => OpenExpense());
             OpenSettingsCommand = new DelegateCommand(o => OpenSettings());
 
-            PathUserPhoto = Settings.Default["PathPhotoUser"].ToString();
+            //PathUserPhoto = Settings.Default["PathPhotoUser"].ToString();
         }
         public string PathUserPhoto { get; set; }
         #region Command
