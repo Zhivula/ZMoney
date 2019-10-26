@@ -17,14 +17,14 @@ namespace ZhiMoney
     {
         public App()
         {
-            if (Settings.Default["NameUser"].ToString() == "" || Settings.Default["FamUser"].ToString() == "")
+            if (Settings.Default["NameUser"].ToString() == string.Empty || Settings.Default["SurnameUser"].ToString() == string.Empty)
             {
-                WelcomeWindowView welwindow = new WelcomeWindowView();
+                var welwindow = new WelcomeWindowView();
                 welwindow.Show();
             }
             else
             {
-                MainWindow mainwindow = new MainWindow();
+                var mainwindow = new MainWindow();
                 mainwindow.Show();
             }
         }

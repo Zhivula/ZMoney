@@ -22,16 +22,16 @@ namespace ZhiMoney.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
         #endregion
-
-        public Visibility SuccessfullyPanel { get; set; }
-
+        WelcomeWindowView window;
         public DelegateCommand CloseWindow { get; set; }
         public DelegateCommand Next { get; set; }
         public DelegateCommand PathToPhotoUser { get; set; }
+        public DelegateCommand MouseDown { get; set; }
 
         private string name;
         private string surname;
         private string pathPhoto;
+        private Visibility successfullyPanel;
 
         public string NameUser
         {
@@ -56,17 +56,29 @@ namespace ZhiMoney.ViewModel
             get => pathPhoto;
             set
             {
+                //TODO: здесь нужна нормальная проверка, чтобы pathPhoto не было null
                 pathPhoto = value;
                 OnPropertyChanged(nameof(PathPhoto));
+            }
+        }
+        public Visibility SuccessfullyPanel
+        {
+            get => successfullyPanel;
+            set
+            {
+                successfullyPanel = value;
+                OnPropertyChanged(nameof(SuccessfullyPanel));
             }
         }
 
         public WelcomeWindowViewModel()
         {
+            window = Application.Current.Windows.OfType<WelcomeWindowView>().FirstOrDefault();
             SuccessfullyPanel = Visibility.Hidden;
-            Next = new DelegateCommand(o => NextPage());
+            Next = new DelegateCommand(o => NextPage(),c=> pathPhoto != null);
             CloseWindow = new DelegateCommand(o => Close());
             PathToPhotoUser = new DelegateCommand(o => SearchPathToPhotoUser());
+            MouseDown = new DelegateCommand(o => Move());
         }
         /// <summary>
         /// Переход к основному окну приложения.
@@ -75,42 +87,44 @@ namespace ZhiMoney.ViewModel
         {
             Settings.Default["SurnameUser"] = SurnameUser;
             Settings.Default["NameUser"] = NameUser;
-            Settings.Default["PathPhotoUser"] = NameUser;
+            Settings.Default["PathPhotoUser"] = PathPhoto;
 
             Settings.Default.Save();
 
             MainWindow mainwindow = new MainWindow();
 
             mainwindow.Show();
-
-            
+            Close();
         }
         /// <summary>
         /// Открытие диалогового окна для указания пути к фото пользователя.
         /// </summary>
         private void SearchPathToPhotoUser()
         {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.FileName = string.Empty;
-            dlg.DefaultExt = ".jpg";
+            var dlg = new Microsoft.Win32.OpenFileDialog
+            {
+                FileName = string.Empty,
+                DefaultExt = ".jpg",
 
-            dlg.Filter = "Файлы фотографий|*.jpg;*.png;*.ico";
+                Filter = "Файлы фотографий|*.jpg;*.png;*.ico"
+            };
 
             bool? result = dlg.ShowDialog();
 
             if (result == true)
-            { 
+            {
                 PathPhoto = dlg.FileName;
                 SuccessfullyPanel = Visibility.Visible;
-
-                MainWindowViewModel mainWindowVM = new MainWindowViewModel();
-                //mainWindowVM.PathUserPhoto = dlg.FileName;
             }
+            else SuccessfullyPanel = Visibility.Hidden;
         }
         private void Close()
         {
-            WelcomeWindowView window = Application.Current.Windows.OfType<WelcomeWindowView>().FirstOrDefault();
             window.Close();
+        }
+        private void Move()
+        {
+            window.DragMove();
         }
 
     }

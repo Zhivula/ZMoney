@@ -8,8 +8,6 @@ namespace ZhiMoney.Model
             #region Fields
             readonly Action<object> _execut;
             readonly Predicate<object> _canExecut;
-
-            public event EventHandler CanExecuteChanged;
             #endregion
 
             #region Constructors
@@ -30,7 +28,7 @@ namespace ZhiMoney.Model
             {
                 _execut(parameter);
             }
-            public event EventHandler CanExecutChanged
+            public event EventHandler CanExecuteChanged
             {
                 add
                 {

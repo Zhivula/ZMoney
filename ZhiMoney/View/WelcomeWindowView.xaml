@@ -36,16 +36,16 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <Ellipse x:Name="CircleUserPhoto" Margin="20" Stroke="Gray">
+                    <Ellipse Margin="20" Stroke="Gray">
                         <Ellipse.Fill>
-                            <ImageBrush x:Name="ImagePhotoUser" ImageSource="{Binding PathUserPhoto,UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
+                            <ImageBrush ImageSource="{Binding PathPhoto,UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
                         </Ellipse.Fill>
                     </Ellipse>
                 </Grid>
                 <Grid Grid.Column="1">
                     <Label Foreground="Gray" FontSize="12" Content="Укажите путь к фото:" Margin="5 26 10 0" VerticalAlignment="Top"/>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding SuccessfullyPanel,UpdateSourceTrigger=PropertyChanged}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding SuccessfullyPanel}">
 
                         <Label Foreground="Gray" FontSize="12" Content="Успешно!" Margin="0 80 0 0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
 
@@ -53,7 +53,7 @@
 
                     </StackPanel>
 
-                    <TextBox FontSize="16" Padding="3 0 0 0" x:Name="InputPathPhotoUser" Background="White" VerticalAlignment="Top" Margin="10 50 10 0" Height="26">
+                    <TextBox Text="{Binding PathPhoto,UpdateSourceTrigger=PropertyChanged}" FontSize="16" Padding="3 0 0 0" Background="White" VerticalAlignment="Top" Margin="10 50 10 0" Height="26">
                         <TextBox.Template>
                             <ControlTemplate>
                                 <Border CornerRadius="5"  BorderThickness="1" BorderBrush="#FF468AFF" Background="White">
