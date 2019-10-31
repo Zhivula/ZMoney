@@ -49,7 +49,7 @@
                             </StackPanel>
                         </Border>
                     </Button>
-                    <Button Margin="2 5 2 0" Command="{Binding OpenDohodCommand}">
+                    <Button Margin="2 5 2 0" Command="{Binding OpenJournalCommand}">
                         <Border BorderBrush="#dcdcdc">
                             <StackPanel Orientation="Horizontal" Width="140">
                                 <materialDesign:PackIcon Height="20" Width="20" HorizontalAlignment="Left" Foreground="White"/>

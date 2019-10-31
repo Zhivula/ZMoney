@@ -80,9 +80,14 @@
     <Compile Include="DataBase\Income.cs" />
     <Compile Include="DataBase\MyDbContext.cs" />
     <Compile Include="Data\MyChart.cs" />
+    <Compile Include="Model\JournalModel.cs" />
     <Compile Include="Model\WelcomeWindowModel.cs" />
+    <Compile Include="ViewModel\JournalViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\WelcomeWindowViewModel.cs" />
+    <Compile Include="View\JournalView.xaml.cs">
+      <DependentUpon>JournalView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -94,6 +99,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\IncomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\JournalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

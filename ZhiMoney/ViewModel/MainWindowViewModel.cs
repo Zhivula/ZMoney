@@ -14,6 +14,7 @@ namespace ZhiMoney.ViewModel
         {
             window = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
 
+            OpenJournalCommand = new DelegateCommand(o => OpenJournal());
             OpenIncomeCommand = new DelegateCommand(o => OpenIncome());
             OpenExpenseCommand = new DelegateCommand(o => OpenExpense());
             OpenSettingsCommand = new DelegateCommand(o => OpenSettings());
@@ -28,6 +29,7 @@ namespace ZhiMoney.ViewModel
         /// </summary>
         public string PathUserPhoto { get; set; }
         #region Command
+        public DelegateCommand OpenJournalCommand { get; set; }
         public DelegateCommand OpenIncomeCommand { get; set; }
         public DelegateCommand OpenExpenseCommand { get; set; }
         public DelegateCommand OpenSettingsCommand { get; set; }
@@ -54,6 +56,11 @@ namespace ZhiMoney.ViewModel
             var welcomewindow = new View.WelcomeWindowView();
             welcomewindow.Show();
             window.Close();
+        }
+        private void OpenJournal()
+        {
+            window.ChangingGrid.Children.Clear();
+            window.ChangingGrid.Children.Add(new View.JournalView());
         }
         #endregion
 

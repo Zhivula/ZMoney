@@ -32,7 +32,6 @@ namespace ZhiMoney.ViewModel
                 else
                 {
                     canNameRecord = false;
-                    MessageBox.Show("Попытка ввести пустую строку.");
                 }
                 OnPropertyChanged(nameof(Name));
             }
