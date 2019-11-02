@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ using ZhiMoney.Model;
 
 namespace ZhiMoney.ViewModel
 {
-    class IncomeViewModel : IncomeModel, INotifyPropertyChanged
+    class IncomeViewModel : INotifyPropertyChanged
     {
         private string name;
         private float summa;
@@ -41,13 +42,22 @@ namespace ZhiMoney.ViewModel
             get => summa;
             set
             {
-                base.ParseSummaToSingle(value.ToString(),out summa,out canSummaRecord);
+                incomemodel.ParseSummaToSingle(value.ToString(),out summa,out canSummaRecord);
                 OnPropertyChanged(nameof(Summa));
             }
         }
-        public new ICommand AddRecord => new DelegateCommand(o =>
+        IncomeModel incomemodel;
+        public string SelectedItem { get; set; }
+        public ObservableCollection<string> Combobox { get; set; }
+        public IncomeViewModel()
         {
-            if (canNameRecord && canSummaRecord) base.AddRecord(Name, Summa);
+            incomemodel = new IncomeModel();
+            Combobox = incomemodel.Combobox;
+            SelectedItem = Combobox.FirstOrDefault();
+        }
+        public ICommand AddRecord => new DelegateCommand(o =>
+        {
+            if (canNameRecord && canSummaRecord) incomemodel.AddRecord(Name, Summa);
             else MessageBox.Show("Некорректные данные.");
         });
         #region PropertyChanged

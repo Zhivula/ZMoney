@@ -44,11 +44,7 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <Label Content="Выбор линий" HorizontalAlignment="Left" Margin="5 5 0 0" VerticalAlignment="Top" Foreground="Gray" FontSize="12"/>
-                        <ComboBox x:Name="VariantLineComboBox" VerticalAlignment="Top" Margin="10 25 10 0" Background="#7986CB" Foreground="#1A237E" FontSize="12" BorderThickness="0">
-                            <TextBlock>Доходы</TextBlock>
-                            <TextBlock>Расходы</TextBlock>
-                            <TextBlock>Общая</TextBlock>
-                        </ComboBox>
+                        <ComboBox ItemsSource="{Binding Path=Combobox}" SelectedItem="{Binding Path=SelectedItem}" VerticalAlignment="Top" Margin="10 25 10 0" Background="#7986CB" Foreground="#1A237E" FontSize="12" BorderThickness="0"/>
                     </Grid>
                     <Grid Grid.Row="1"><!--БЛОК ОБОЗНАЧЕНИЙ И ПОЯСНЕНИЙ ДЛЯ ГРАФИКА-->
                         <StackPanel Orientation="Vertical">
