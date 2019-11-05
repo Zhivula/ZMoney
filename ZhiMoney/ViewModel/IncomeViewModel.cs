@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Input;
 using ZhiMoney.Model;
 
@@ -46,20 +47,35 @@ namespace ZhiMoney.ViewModel
                 OnPropertyChanged(nameof(Summa));
             }
         }
+        public Chart WinhostChild { get; set; }
         IncomeModel incomemodel;
         public string SelectedItem { get; set; }
         public ObservableCollection<string> Combobox { get; set; }
         public IncomeViewModel()
         {
             incomemodel = new IncomeModel();
+            var chart = new Data.MyChart();
             Combobox = incomemodel.Combobox;
             SelectedItem = Combobox.FirstOrDefault();
+            WinhostChild = Chart(chart.Chart);
         }
+        /// <summary>
+        /// Добавление записи о доходе в базу данных 
+        /// </summary>
         public ICommand AddRecord => new DelegateCommand(o =>
         {
             if (canNameRecord && canSummaRecord) incomemodel.AddRecord(Name, Summa);
             else MessageBox.Show("Некорректные данные.");
         });
+        public Chart Chart(Chart chart)
+        {
+            int days = 90;
+            int[] a = new int[days];
+            string[] b = new string[days];
+            for (int i = 0; i < days; i++) { a[i] = i; b[i] = DateTime.Now.AddDays(-days + 2 + i).ToShortDateString(); }
+            for(int i=0;  i < days;i++) if (SelectedItem.Equals(Combobox.FirstOrDefault())) chart.Series[2].Points.AddXY(b[i], a[i]);
+            return chart;
+        }
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string name)

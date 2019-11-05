@@ -11,15 +11,15 @@ namespace ZhiMoney.Data
 {
     public class MyChart
     {
-        private Chart Chart { get; set; }
-        private ChartArea ChartArea { get; set; }
-        private Series FirstSeries { get; set; }
-        private Series SecondSeries { get; set; }
-        private Series ThirdSeries { get; set; }
-        private FontFamily FontFamily { get; set; }
+        public Chart Chart { get; private set; }
+        public ChartArea ChartArea { get; private set; }
+        public Series FirstSeries { get; private set; }
+        public Series SecondSeries { get; private set; }
+        public Series ThirdSeries { get; private set; }
+        public FontFamily FontFamily { get; private set; }
         private readonly Color[] Colors;
 
-        public MyChart(WindowsFormsHost winhost)
+        public MyChart()
         {
             Chart = new Chart();
             ChartArea = new ChartArea();
@@ -27,7 +27,7 @@ namespace ZhiMoney.Data
             SecondSeries = new Series();
             ThirdSeries = new Series();
 
-            winhost.Child = Chart;
+            //winhost.Child = Chart;
 
             Chart.ChartAreas.Add(ChartArea);
 
