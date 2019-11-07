@@ -13,21 +13,12 @@ namespace ZhiMoney.ViewModel
 {
     class JournalViewModel
     {
-        public ObservableCollection<Income> Items;
+        public List<Income> Items { get; set; }
         private JournalModel journalmodel;
         public JournalViewModel()
         {
             journalmodel = new JournalModel();
             Items = journalmodel.ItemsIncomes;
-            foreach (Expense i in journalmodel.ItemsExpense)
-            {
-                Items.Add(new Income {
-                    Name = i.Name,
-                    Summa = i.Summa,
-                    Id = i.Id,
-                    Date = i.Date
-                });
-            }
         }
     }
 }

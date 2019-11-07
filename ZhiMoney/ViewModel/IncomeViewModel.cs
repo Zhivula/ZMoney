@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Input;
+using ZhiMoney.DataBase;
 using ZhiMoney.Model;
 
 namespace ZhiMoney.ViewModel
@@ -18,6 +19,7 @@ namespace ZhiMoney.ViewModel
     {
         private string name;
         private float summa;
+        private string selecteditem;
         private bool canNameRecord;
         private bool canSummaRecord;
 
@@ -49,7 +51,15 @@ namespace ZhiMoney.ViewModel
         }
         public Chart WinhostChild { get; set; }
         IncomeModel incomemodel;
-        public string SelectedItem { get; set; }
+        public string SelectedItem
+        {
+            get => selecteditem;
+            set
+            {
+                selecteditem = value;
+                OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
         public ObservableCollection<string> Combobox { get; set; }
         public IncomeViewModel()
         {
@@ -69,11 +79,25 @@ namespace ZhiMoney.ViewModel
         });
         public Chart Chart(Chart chart)
         {
-            int days = 90;
+            int days = 30;
+            float[] income = new float[days];
+            float[] expense = new float[days];
+            using (var context = new MyDbContext())
+            {
+                int i = 0;
+                if (context.Incomes != null && (DateTime.Now.Day - context.Incomes.First().Date.Day) < 30)
+                    foreach (Income item in context.Incomes)
+                    {
+                        income[i] = item.Summa;
+                        i++;
+                    }
+            }
+            
             int[] a = new int[days];
             string[] b = new string[days];
             for (int i = 0; i < days; i++) { a[i] = i; b[i] = DateTime.Now.AddDays(-days + 2 + i).ToShortDateString(); }
-            for(int i=0;  i < days;i++) if (SelectedItem.Equals(Combobox.FirstOrDefault())) chart.Series[2].Points.AddXY(b[i], a[i]);
+
+            for(int i=0;  i < days;i++) if (SelectedItem.Equals(Combobox.FirstOrDefault())) chart.Series[2].Points.AddXY(b[i], income[i]);
             return chart;
         }
         #region PropertyChanged
