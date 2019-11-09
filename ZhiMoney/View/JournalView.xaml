@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid x:Name="Items" Margin="10,10,10,0" AutoGenerateColumns="False" VerticalAlignment="Top" ItemsSource="{Binding Path=Items}">
+        <DataGrid x:Name="Items" Margin="10,10,10,0" AutoGenerateColumns="False" VerticalAlignment="Top" ItemsSource="{Binding Path=ItemsIncome}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background"  Value="#283593"/>

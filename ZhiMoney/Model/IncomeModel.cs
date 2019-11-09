@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace ZhiMoney.Model
     class IncomeModel
     {
         public ObservableCollection<string> Combobox;
+
         public IncomeModel()
         {
             Combobox = new ObservableCollection<string>()
@@ -20,6 +22,32 @@ namespace ZhiMoney.Model
                  "   Доходы" ,
                  "   Расходы"
             };
+        }
+        /// <summary>
+        /// Возвращает список с датами, когда вносились пополениния счета.
+        /// </summary>
+        /// <returns></returns>
+        public List<DateTime> GetDateTimes()
+        {
+            var list = new List<DateTime>();
+            using (var context = new MyDbContext())
+            {
+                list = context.Incomes.Select(x=> x.Date).ToList();
+            }
+            return list;
+        }
+        /// <summary>
+        /// Возвращает список с суммами, которые вносились пользователем.
+        /// </summary>
+        /// <returns></returns>
+        public List<float> GetSumma()
+        {
+            var list = new List<float>();
+            using (var context = new MyDbContext())
+            {
+                list = context.Incomes.Select(x => x.Summa).ToList();
+            }
+            return list;
         }
         /// <summary>
         /// Добавление записи в базу данных, в таблицу Income 
@@ -41,6 +69,7 @@ namespace ZhiMoney.Model
             }
             MessageBox.Show("Запись успешно внесена!");
         }
+
         /// <summary>
         /// Обработка входящих данных.
         /// Попытка преобразовать входящие данные в тип float (он же и Single)

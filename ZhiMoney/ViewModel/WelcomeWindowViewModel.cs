@@ -94,6 +94,7 @@ namespace ZhiMoney.ViewModel
             MainWindow mainwindow = new MainWindow();
 
             mainwindow.Show();
+
             Close();
         }
         /// <summary>
@@ -116,7 +117,7 @@ namespace ZhiMoney.ViewModel
                 PathPhoto = dlg.FileName;
                 SuccessfullyPanel = Visibility.Visible;
             }
-            else SuccessfullyPanel = Visibility.Hidden;
+            //else SuccessfullyPanel = Visibility.Hidden;   - Эта строка не совсем нужна, на будущее оставлю, когда будет нормальная проверка
         }
         private void Close()
         {

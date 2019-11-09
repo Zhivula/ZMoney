@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using ZhiMoney.DataBase;
 using ZhiMoney.Model;
@@ -20,23 +21,18 @@ namespace ZhiMoney.ViewModel
         private string name;
         private float summa;
         private string selecteditem;
-        private bool canNameRecord;
-        private bool canSummaRecord;
+        IncomeModel incomemodel;
+
+        public ObservableCollection<string> Combobox { get; set; }
+
+        public Chart WinhostChild { get; set; }
 
         public string Name
         {
             get => name;
             set
             {
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    name = value;
-                    canNameRecord = true;
-                }
-                else
-                {
-                    canNameRecord = false;
-                }
+                name = value;
                 OnPropertyChanged(nameof(Name));
             }
         }
@@ -45,12 +41,18 @@ namespace ZhiMoney.ViewModel
             get => summa;
             set
             {
-                incomemodel.ParseSummaToSingle(value.ToString(),out summa,out canSummaRecord);
+                summa = value;
                 OnPropertyChanged(nameof(Summa));
             }
         }
-        public Chart WinhostChild { get; set; }
-        IncomeModel incomemodel;
+        public WindowsFormsHost Winhost
+        {
+            get => new WindowsFormsHost
+            {
+                Child = WinhostChild
+            };
+        }
+
         public string SelectedItem
         {
             get => selecteditem;
@@ -60,7 +62,7 @@ namespace ZhiMoney.ViewModel
                 OnPropertyChanged(nameof(SelectedItem));
             }
         }
-        public ObservableCollection<string> Combobox { get; set; }
+
         public IncomeViewModel()
         {
             incomemodel = new IncomeModel();
@@ -74,30 +76,35 @@ namespace ZhiMoney.ViewModel
         /// </summary>
         public ICommand AddRecord => new DelegateCommand(o =>
         {
-            if (canNameRecord && canSummaRecord) incomemodel.AddRecord(Name, Summa);
+            if (!string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Summa.ToString())) incomemodel.AddRecord(Name, Summa);
             else MessageBox.Show("Некорректные данные.");
         });
-        public Chart Chart(Chart chart)
-        {
-            int days = 30;
-            float[] income = new float[days];
-            float[] expense = new float[days];
-            using (var context = new MyDbContext())
-            {
-                int i = 0;
-                if (context.Incomes != null && (DateTime.Now.Day - context.Incomes.First().Date.Day) < 30)
-                    foreach (Income item in context.Incomes)
-                    {
-                        income[i] = item.Summa;
-                        i++;
-                    }
-            }
-            
-            int[] a = new int[days];
-            string[] b = new string[days];
-            for (int i = 0; i < days; i++) { a[i] = i; b[i] = DateTime.Now.AddDays(-days + 2 + i).ToShortDateString(); }
 
-            for(int i=0;  i < days;i++) if (SelectedItem.Equals(Combobox.FirstOrDefault())) chart.Series[2].Points.AddXY(b[i], income[i]);
+        public Chart Chart(Chart chart,int days = 30)
+        {
+            var Date = incomemodel.GetDateTimes();
+            var Summa = incomemodel.GetSumma();
+            DateTime[] date = new DateTime[days];
+            var summa = new float[days];
+
+            for (int i = 0; i < days; i++)
+            {
+                date[i] = DateTime.Now.AddDays(i - days + 1);
+            }
+
+            for (int i = 0; i < days; i++)
+            {
+                summa[i] = 5;
+                for (int j = 0; j < Date.Count(); j++)
+                {
+                    if (date[i].DayOfYear == Date[j].DayOfYear)
+                    {
+                        summa[i] += Summa[j];
+                    }
+                }
+            }
+
+            for(int i = 0;  i < days;i++) if (SelectedItem.Equals(Combobox.FirstOrDefault())) chart.Series[2].Points.AddXY(date[i], summa[i]);
             return chart;
         }
         #region PropertyChanged

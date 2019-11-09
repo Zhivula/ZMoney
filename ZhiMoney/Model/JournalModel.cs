@@ -13,17 +13,20 @@ namespace ZhiMoney.Model
     class JournalModel
     {
         public List<Income> ItemsIncomes { get; set; }
-        public ObservableCollection<Expense> ItemsExpense { get; set; }
+        public List<Expense> ItemsExpense { get; set; }
+
         public JournalModel()
         {
             ItemsIncomes = new List<Income>();
-            ItemsExpense = new ObservableCollection<Expense>();
+            ItemsExpense = new List<Expense>();
+
             ///Подключение к базе данных 
-            ///Добавление в Items данных Income и Expense
+            ///Добавление в ItemsItemsIncomes данных Income
+            ///Добавление в ItemsExpense данных Expense
             using (var context = new MyDbContext())
             {
-                foreach (Income i in context.Incomes) ItemsIncomes.Add(i);
-                foreach (Expense i in context.Expenses) ItemsExpense.Add(i);
+                ItemsIncomes.AddRange(context.Incomes);//Оптимизированное добавление, было так => (foreach (Income i in context.Incomes) ItemsIncome.Add(i);)
+                ItemsExpense.AddRange(context.Expenses);
             }
         }
     }

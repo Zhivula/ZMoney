@@ -28,7 +28,7 @@
                         <DropShadowEffect ShadowDepth="0" Direction="90" Color="Black" Opacity="0.75"  BlurRadius="10.0" />
                     </Border.Effect>
                 </Border>
-                <WindowsFormsHost BindingGroup="{Binding WinhostChild}" Name="winhost" Background="{x:Null}" Margin="10"/><!--Интеграция графика из Windows.Forms-->   
+                <ContentControl Content="{Binding Winhost}" Background="{x:Null}" Margin="10"/><!--Интеграция графика из Windows.Forms-->   
                 </Grid>
                 <Grid Grid.Column="1" Margin="5 5 5 0">
                     <Border CornerRadius="7"  Background="White">
