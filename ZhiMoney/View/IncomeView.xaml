@@ -28,7 +28,7 @@
                         <DropShadowEffect ShadowDepth="0" Direction="90" Color="Black" Opacity="0.75"  BlurRadius="10.0" />
                     </Border.Effect>
                 </Border>
-                <ContentControl Content="{Binding Winhost}" Background="{x:Null}" Margin="10"/><!--Интеграция графика из Windows.Forms-->   
+                <ContentControl Content="{Binding WinFormsHost}" Background="{x:Null}" Margin="10"/><!--Интеграция графика из Windows.Forms-->   
                 </Grid>
                 <Grid Grid.Column="1" Margin="5 5 5 0">
                     <Border CornerRadius="7"  Background="White">
@@ -40,13 +40,13 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="2*"/>
-                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <Label Content="Выбор линий" HorizontalAlignment="Left" Margin="5 5 0 0" VerticalAlignment="Top" Foreground="Gray" FontSize="12"/>
                         <ComboBox ItemsSource="{Binding Path=Combobox}" SelectedItem="{Binding Path=SelectedItem}" VerticalAlignment="Top" Margin="10 25 10 0" Background="#7986CB" Foreground="#1A237E" FontSize="12" BorderThickness="0"/>
                     </Grid>
-                    <Grid Grid.Row="1"><!--БЛОК ОБОЗНАЧЕНИЙ И ПОЯСНЕНИЙ ДЛЯ ГРАФИКА-->
+                    <Grid Grid.Row="1">
+                        <!--БЛОК ОБОЗНАЧЕНИЙ И ПОЯСНЕНИЙ ДЛЯ ГРАФИКА-->
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
                                 <Rectangle Fill="Blue" Height="15" Margin="10 0 0 0" Stroke="White" Width="15"/>
@@ -61,9 +61,6 @@
                                 <Label Content="- Линия доходов" Foreground="Gray" FontSize="14"/>
                             </StackPanel>
                         </StackPanel>
-                    </Grid>
-                    <Grid Grid.Row="2"><!--БЛОК КНОПКИ ПРИМЕНЕНИЯ ДЛЯ ГРАФИКА-->    
-                        <Button Margin="10 0 10 10" VerticalAlignment="Bottom" Content="ПРИМЕНИТЬ" Command="{}"/>
                     </Grid>
                 </Grid>
             </Grid>

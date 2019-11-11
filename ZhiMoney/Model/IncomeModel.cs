@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms.DataVisualization.Charting;
 using ZhiMoney.DataBase;
 
 namespace ZhiMoney.Model
@@ -92,5 +93,25 @@ namespace ZhiMoney.Model
 
         }
 
+        public void AlgorthmSort(out DateTime[] date, out float[] summa, int days = 30)
+        {
+            var Date = GetDateTimes();
+            var Summa = GetSumma();
+            date = new DateTime[days];
+            summa = new float[days];
+
+            for (int i = 0; i < days; i++)
+            {
+                date[i] = DateTime.Now.AddDays(i - days + 1);
+                summa[i] = 0;
+                for (int j = 0; j < Date.Count(); j++)
+                {
+                    if (date[i].ToShortDateString() == Date[j].ToShortDateString())
+                    {
+                        summa[i] += Summa[j];
+                    }
+                }
+            }
+        }
     }
 }
