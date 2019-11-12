@@ -23,6 +23,8 @@ namespace ZhiMoney.ViewModel
             PathUserPhoto = Settings.Default["PathPhotoUser"].ToString();
             NameUser = Settings.Default["NameUser"].ToString();
             SurnameUser = Settings.Default["SurnameUser"].ToString();
+
+            window.ChangingGrid.Children.Add(new View.IncomeView());
         }
         /// <summary>
         /// Путь к фотографии пользователя.

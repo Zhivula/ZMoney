@@ -20,11 +20,13 @@ namespace ZhiMoney.ViewModel
     class IncomeViewModel : INotifyPropertyChanged
     {
         private string name;
-        private float summa;
+        private string summa;
         private string selecteditem;
         private Chart chartChild;
         private WindowsFormsHost windowsFormsHost;
-        IncomeModel incomemodel;
+        private InputData inputData;
+        IncomeModel incomeModel;
+        ExpenseModel expenseModel;
         
 
 
@@ -55,17 +57,17 @@ namespace ZhiMoney.ViewModel
             get => name;
             set
             {
-                name = value;
-                OnPropertyChanged(nameof(Name));
+                 name = value;
+                 OnPropertyChanged(nameof(Name));
             }
         }
-        public float Summa
+        public string Summa
         {
             get => summa;
             set
             {
-                summa = value;
-                OnPropertyChanged(nameof(Summa));
+                 summa = value;
+                 OnPropertyChanged(nameof(Summa));
             }
         }
 
@@ -82,45 +84,53 @@ namespace ZhiMoney.ViewModel
 
         public IncomeViewModel()
         {
-            incomemodel = new IncomeModel();
-            var chart = new MyChart();
-            Combobox = incomemodel.Combobox;
+            incomeModel = new IncomeModel();
+            expenseModel = new ExpenseModel();
+            Combobox = incomeModel.Combobox;
             SelectedItem = Combobox.First();
-            ChartChild = FilledChart(chart.Chart);
-            WinFormsHost = new WindowsFormsHost
-            {
-                Child = ChartChild
-            };
+            inputData = new InputData();
+            UpDateChart();
         }
         /// <summary>
         /// Добавление записи о доходе в базу данных 
         /// </summary>
         public ICommand AddRecord => new DelegateCommand(o =>
         {
-            if (!string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Summa.ToString()))
+            var summa = inputData.ConvertStringToFloat(Summa);
+            if (!string.IsNullOrWhiteSpace(Name) && summa > 0)
             {
-                incomemodel.AddRecord(Name, Summa);
+                incomeModel.AddRecord(Name, summa);
                 UpDateChart();
+                Name = Summa = string.Empty;
             }
             else MessageBox.Show("Некорректные данные.");
         });
 
         public Chart FilledChart(Chart chart, int days = 30)
         {
-            incomemodel.AlgorthmSort(out DateTime[] date, out float[] summa, days);
+            incomeModel.AlgorthmSort(out DateTime[] dateIncome, out float[] summaIncome, days);
+
+            expenseModel.AlgorthmSort(out DateTime[] dateExpense, out float[] summaExpense, days);
 
             if (SelectedItem.Equals(Combobox[0]))
             {
                 for (int i = 0; i < days; i++)
                 {
-                    chart.Series[0].Points.AddXY(date[i], summa[i]);
+                    chart.Series[0].Points.AddXY(dateIncome[i], summaIncome[i]);
                 }
             }
             if (SelectedItem.Equals(Combobox[1]))
             {
                 for (int i = 0; i < days; i++)
                 {
-                    chart.Series[1].Points.AddXY(date[i], summa[i]);
+                    chart.Series[1].Points.AddXY(dateExpense[i], summaExpense[i]);
+                }
+            }
+            if (SelectedItem.Equals(Combobox[2]))
+            {
+                for (int i = 0; i < days; i++)
+                {
+                    chart.Series[2].Points.AddXY(dateIncome[i], summaIncome[i] - summaExpense[i]);
                 }
             }
             return chart;

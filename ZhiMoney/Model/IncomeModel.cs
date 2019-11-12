@@ -21,7 +21,8 @@ namespace ZhiMoney.Model
             Combobox = new ObservableCollection<string>()
             {
                  "   Доходы" ,
-                 "   Расходы"
+                 "   Расходы",
+                 "   Общая"
             };
         }
         /// <summary>
@@ -69,28 +70,6 @@ namespace ZhiMoney.Model
                 context.SaveChanges();
             }
             MessageBox.Show("Запись успешно внесена!");
-        }
-
-        /// <summary>
-        /// Обработка входящих данных.
-        /// Попытка преобразовать входящие данные в тип float (он же и Single)
-        /// </summary>
-        /// <param name="o"></param>
-        /// <param name="result"></param>
-        /// <param name="canSummaRecord"></param>
-        public void ParseSummaToSingle(string o, out float result,out bool canSummaRecord)
-        {
-            if (float.TryParse(o.ToString(), out result))
-            {
-                result = float.Parse(o);
-                canSummaRecord = true;
-            }
-            else
-            {
-                canSummaRecord = false;
-                MessageBox.Show("Неудалось выполнить преобразование.");
-            }
-
         }
 
         public void AlgorthmSort(out DateTime[] date, out float[] summa, int days = 30)
