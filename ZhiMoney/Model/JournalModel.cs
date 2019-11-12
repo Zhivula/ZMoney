@@ -12,13 +12,13 @@ namespace ZhiMoney.Model
 {
     class JournalModel
     {
-        public List<Income> ItemsIncomes { get; set; }
-        public List<Expense> ItemsExpense { get; set; }
+        public List<IInputData> ItemsIncomes { get; set; }
+        public List<IInputData> ItemsExpense { get; set; }
 
         public JournalModel()
         {
-            ItemsIncomes = new List<Income>();
-            ItemsExpense = new List<Expense>();
+            ItemsIncomes = new List<IInputData>();
+            ItemsExpense = new List<IInputData>();
 
             ///Подключение к базе данных 
             ///Добавление в ItemsItemsIncomes данных Income

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,17 @@ namespace ZhiMoney.Model
 {
     class ExpenseModel
     {
+        public ObservableCollection<string> Combobox;
+
+        public ExpenseModel()
+        {
+            Combobox = new ObservableCollection<string>()
+            {
+                 "   Доходы" ,
+                 "   Расходы",
+                 "   Общая"
+            };
+        }
         /// <summary>
         /// Добавление записи в базу данных, в таблицу Expense 
         /// </summary>

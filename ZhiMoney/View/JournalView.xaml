@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid x:Name="Items" Margin="10,10,10,0" AutoGenerateColumns="False" VerticalAlignment="Top" ItemsSource="{Binding Path=ItemsIncome}">
+        <DataGrid x:Name="Items" Margin="10,10,10,0" AutoGenerateColumns="False" VerticalAlignment="Top" ItemsSource="{Binding Path=Items}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background"  Value="#283593"/>
@@ -20,6 +20,7 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="  Индекс" Width="*" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="  Наименование" Width="*" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="  Сумма" Width="*" Binding="{Binding Summa}"/>
                 <DataGridTextColumn Header="  Дата" Width="*" Binding="{Binding Date}"/>
             </DataGrid.Columns>

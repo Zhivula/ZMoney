@@ -78,6 +78,7 @@
     </ApplicationDefinition>
     <Compile Include="DataBase\Expense.cs" />
     <Compile Include="DataBase\Income.cs" />
+    <Compile Include="DataBase\IInputData.cs" />
     <Compile Include="DataBase\MyDbContext.cs" />
     <Compile Include="Data\InputData.cs" />
     <Compile Include="Data\MyChart.cs" />

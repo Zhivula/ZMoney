@@ -13,14 +13,14 @@ namespace ZhiMoney.ViewModel
 {
     class JournalViewModel
     {
-        public List<Income> ItemsIncome { get; set; }
-        public List<Expense> ItemseExpense { get; set; }
+        public List<IInputData> Items { get; set; }
 
         public JournalViewModel()
         {
             var journalmodel = new JournalModel();
-            ItemsIncome = journalmodel.ItemsIncomes;
-            ItemseExpense = journalmodel.ItemsExpense;
+            Items = journalmodel.ItemsIncomes;
+            Items.AddRange(journalmodel.ItemsExpense);
+            Items.Sort();
         }
     }
 }
