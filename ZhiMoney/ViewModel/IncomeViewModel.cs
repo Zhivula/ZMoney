@@ -25,12 +25,34 @@ namespace ZhiMoney.ViewModel
         private Chart chartChild;
         private WindowsFormsHost windowsFormsHost;
         private InputData inputData;
-        IncomeModel incomeModel;
-        ExpenseModel expenseModel;
+        private Visibility hintVisibility;
+        private string hintName;
+        private PrefixTree<int> prefixTree;
+        private IncomeModel incomeModel;
+        private ExpenseModel expenseModel;
         
 
 
         public ObservableCollection<string> Combobox { get; set; }
+
+        public Visibility HintVisibility
+        {
+            get => hintVisibility;
+            set
+            {
+                hintVisibility = value;
+                OnPropertyChanged(nameof(HintVisibility));
+            }
+        }
+
+        public string HintName {
+            get => hintName;
+            set
+            {
+                hintName = value;
+                OnPropertyChanged(nameof(HintName));
+            }
+        }
 
         public Chart ChartChild
         {
@@ -56,9 +78,22 @@ namespace ZhiMoney.ViewModel
         {
             get => name;
             set
-            {
+            { 
                  name = value;
                  OnPropertyChanged(nameof(Name));
+                 if (!string.IsNullOrWhiteSpace(value))
+                 {
+                     HintVisibility = Visibility.Visible;
+                     
+                    if (prefixTree.TrySearch(value,out int count))
+                    {
+                        HintName = value;
+                    }
+                 }
+                 else
+                 {
+                     HintVisibility = Visibility.Hidden;
+                 }
             }
         }
         public string Summa
@@ -88,7 +123,10 @@ namespace ZhiMoney.ViewModel
             expenseModel = new ExpenseModel();
             Combobox = incomeModel.Combobox;
             SelectedItem = Combobox.First();
+            HintVisibility = Visibility.Hidden;
             inputData = new InputData();
+            prefixTree = new PrefixTree<int>();
+            FillPrefixTree(prefixTree);
             UpDateChart();
         }
         /// <summary>
@@ -143,6 +181,17 @@ namespace ZhiMoney.ViewModel
                 Child = ChartChild
             };
         }
+
+        private PrefixTree<int> FillPrefixTree(PrefixTree<int> prefixTree)
+        {
+            using (var context = new MyDbContext())
+            {
+                List<string> itemsIncome = context.Incomes.Select(x => x.Name).ToList();
+                foreach(string item in itemsIncome)  prefixTree.Add(item,1);
+                return prefixTree;
+            }
+        }
+
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string name)

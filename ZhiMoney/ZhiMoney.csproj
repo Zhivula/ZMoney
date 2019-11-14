@@ -82,6 +82,8 @@
     <Compile Include="DataBase\MyDbContext.cs" />
     <Compile Include="Data\InputData.cs" />
     <Compile Include="Data\MyChart.cs" />
+    <Compile Include="Data\Node.cs" />
+    <Compile Include="Data\PrefixTree.cs" />
     <Compile Include="Model\JournalModel.cs" />
     <Compile Include="Model\WelcomeWindowModel.cs" />
     <Compile Include="ViewModel\JournalViewModel.cs" />
