@@ -6,30 +6,39 @@ using System.Threading.Tasks;
 
 namespace ZhiMoney.Data
 {
-    class PrefixTree<T>
+    public class PrefixTree
     {
-        private Node<T> root;
+        /// <summary>
+        /// Корень префиксного дерева.
+        /// </summary>
+        private Node root;
 
+        /// <summary>
+        /// Количество ячеек в префиксном дереве.
+        /// </summary>
         public int Count { get; set; }
 
         public PrefixTree()
         {
-            root = new Node<T>('\0', default(T), "");
+            root = new Node('\0', 0, "");
             Count = 1;
         }
 
-        public void Add(string key, T data)
+        /// <summary>
+        /// Добавление слова в префиксное дерево.
+        /// </summary>
+        /// <param name="key">Добавляемое слово</param>
+        public void Add(string key)
         {
-            AddNode(key, data, root);
+            AddNode(key, root);
         }
 
-        private void AddNode(string key, T data, Node<T> node)
+        private void AddNode(string key, Node node)
         {
             if (string.IsNullOrEmpty(key))
             {
                 if (!node.IsWord)
                 {
-                    node.Data = data;
                     node.IsWord = true;
                 }
             }
@@ -39,24 +48,33 @@ namespace ZhiMoney.Data
                 var subnode = node.TryFind(symbol);
                 if (subnode != null)
                 {
-                    AddNode(key.Substring(1), data, subnode);
+                    subnode.Data++;
+                    AddNode(key.Substring(1), subnode);
                 }
                 else
                 {
-                    var newNode = new Node<T>(key[0], data, node.Prefix + key[0]);
+                    var newNode = new Node(key[0], 1, node.Prefix + key[0]);
                     node.SubNodes.Add(key[0], newNode);
-                    AddNode(key.Substring(1), data, newNode);
+                    Count++;
+                    AddNode(key.Substring(1), newNode);
                 }
             }
 
         }
 
+        /// <summary>
+        /// Удаление слова из префиксного дерева.
+        /// Смысл такой, что мы обходим каждую ячейку пока не дойдем до последней ячейки слова,
+        /// а затем просто меняем IsWord = false. Получается, они просто остаются висеть в памяти, ведь при поиске 
+        /// последняя ячейка будет IsWord = false, а значит мы это слово просто не получим и его как бы нет.
+        /// </summary>
+        /// <param name="key">Удаляемое слово</param>
         public void Remove(string key)
         {
             RemoveNode(key, root);
         }
 
-        private void RemoveNode(string key, Node<T> node)
+        private void RemoveNode(string key, Node node)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -70,26 +88,38 @@ namespace ZhiMoney.Data
                 var subnode = node.TryFind(key[0]);
                 if (subnode != null)
                 {
+                    Count--;
                     RemoveNode(key.Substring(1), subnode);
                 }
             }
         }
 
-        public bool TrySearch(string key, out T value)
+        /// <summary>
+        /// Попытка найти слово. Этот метод создан СПЕЦИАЛЬНО ТОЛЬКО ДЛЯ ПРЕДЛОЖЕНИЯ ИСКОМЫХ ВАРИАНТОВ.
+        /// Он срабатывает когда пользователь начинает вводить символы,
+        /// затем метод вернет один из популярных слов, которые есть в префиксном дереве.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public bool TrySearchWord(string key, ref string word)
         {
-            return SearchNode(key, root, out value);
+             return SearchWord(key, root, ref word);
         }
 
-        private bool SearchNode(string key, Node<T> node, out T value)
+        private bool SearchWord(string key, Node node, ref string word)
         {
-            value = default(T);
             var result = false;
             if (string.IsNullOrEmpty(key))
             {
                 if (node.IsWord)
                 {
-                    value = node.Data;
-                    result = true;
+                     word = node.Prefix;
+                     result = true;
+                }
+                else
+                {
+                    result = SearchWord(MoreImportantChar(node.SubNodes).ToString(), node, ref word);
                 }
             }
             else
@@ -97,11 +127,35 @@ namespace ZhiMoney.Data
                 var subnode = node.TryFind(key[0]);
                 if (subnode != null)
                 {
-                    result = SearchNode(key.Substring(1), subnode, out value);
+                    result = SearchWord(key.Substring(1), subnode, ref word);
                 }
             }
-
             return result;
+        }
+
+        /// <summary>
+        /// Находит ячейку с наибольшим счетчиком (наиболее популярную).
+        /// </summary>
+        /// <param name="subnode">Словарь в котором будем искать самую часто встречающуюся ячейку</param>
+        /// <returns>Символ самой часто встречающуейся ячейки</returns>
+        private char MoreImportantChar(Dictionary<char, Node> subnode)
+        {
+            if (subnode != null)
+            {
+                char symbol = subnode.First().Value.Symbol;
+                var current = subnode.First().Value.Data;
+                foreach(var node in subnode)
+                {
+                    if (node.Value.Data > current)
+                    {
+                        symbol = node.Value.Symbol;
+                        current = node.Value.Data;
+                    }
+                }
+                return symbol;
+            }
+
+            return '\0';
         }
     }
 }

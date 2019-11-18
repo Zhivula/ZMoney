@@ -6,29 +6,59 @@ using System.Threading.Tasks;
 
 namespace ZhiMoney.Data
 {
-    internal class Node<T>
+    /// <summary>
+    /// Класс, представляющий одну ячейку в префиксном дереве.
+    /// </summary>
+    internal class Node
     {
+        /// <summary>
+        /// Символ, который будет храниться в ячейке.
+        /// Слово будет формироваться из последовательности таких ячеек(содержащихся в них символов).
+        /// </summary>
         public char Symbol { get; set; }
 
-        public T Data { get; set; }
+        /// <summary>
+        /// Число, показывающее количество добавления новых слов через определенный путь.
+        /// </summary>
+        public int Data { get; set; }
 
+        /// <summary>
+        /// Указывает, является ли данная ячейка окончанием слова.
+        /// </summary>
         public bool IsWord { get; set; }
 
+        /// <summary>
+        /// Префикс данной ячейки. 
+        /// Содержит последовательность всех символов, которые "стоят" перед данной ячейкой.
+        /// </summary>
         public string Prefix { get; set; }
 
-        public Dictionary<char, Node<T>> SubNodes { get; set; }
+        /// <summary>
+        /// Словарь всех других ячеек, которые исходят от данной ячейки.
+        /// </summary>
+        public Dictionary<char, Node> SubNodes { get; set; }
 
-        public Node(char symbol, T data, string prefix)
+        /// <summary>
+        /// Создание новой ячейки.
+        /// </summary>
+        /// <param name="symbol"> Символ</param>
+        /// <param name="data"> Счетчик</param>
+        /// <param name="prefix"> Префикс</param>
+        public Node(char symbol, int data, string prefix)
         {
             Symbol = symbol;
             Data = data;
-            SubNodes = new Dictionary<char, Node<T>>();
             Prefix = prefix;
+            SubNodes = new Dictionary<char, Node>();
         }
-
-        public Node<T> TryFind(char symbol)
+        /// <summary>
+        /// Поиск ячейки по вводимому символу.
+        /// </summary>
+        /// <param name="symbol"> Искомый символ</param>
+        /// <returns></returns>
+        public Node TryFind(char symbol)
         {
-            if (SubNodes.TryGetValue(symbol,out Node<T> value))
+            if (SubNodes.TryGetValue(symbol,out Node value))
             {
                 return value;
             }
@@ -40,12 +70,12 @@ namespace ZhiMoney.Data
 
         public override string ToString()
         {
-            return Data.ToString();
+            return Symbol.ToString();
         }
 
         public override bool Equals(object obj)
         {
-            if(obj is Node<T> item)
+            if(obj is Node item)
             {
                 return Data.Equals(item);
             }

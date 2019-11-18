@@ -27,7 +27,7 @@ namespace ZhiMoney.ViewModel
         private InputData inputData;
         private Visibility hintVisibility;
         private string hintName;
-        private PrefixTree<int> prefixTree;
+        private PrefixTree prefixTree;
         private IncomeModel incomeModel;
         private ExpenseModel expenseModel;
         
@@ -82,17 +82,18 @@ namespace ZhiMoney.ViewModel
                  name = value;
                  OnPropertyChanged(nameof(Name));
                  if (!string.IsNullOrWhiteSpace(value))
-                 {
-                     HintVisibility = Visibility.Visible;
-                     
-                    if (prefixTree.TrySearch(value,out int count))
-                    {
-                        HintName = value;
-                    }
+                 {                  
+                     string hintName = string.Empty;                                      
+                     if (prefixTree.TrySearchWord(value, ref hintName))
+                     {
+                         HintVisibility = Visibility.Visible;
+                         HintName = hintName;
+                     }
                  }
                  else
                  {
                      HintVisibility = Visibility.Hidden;
+                     HintName = string.Empty;
                  }
             }
         }
@@ -121,12 +122,19 @@ namespace ZhiMoney.ViewModel
         {
             incomeModel = new IncomeModel();
             expenseModel = new ExpenseModel();
-            Combobox = incomeModel.Combobox;
-            SelectedItem = Combobox.First();
-            HintVisibility = Visibility.Hidden;
+
             inputData = new InputData();
-            prefixTree = new PrefixTree<int>();
-            FillPrefixTree(prefixTree);
+
+            prefixTree = new PrefixTree();
+
+            Combobox = incomeModel.Combobox;
+
+            SelectedItem = Combobox.First();
+
+            HintVisibility = Visibility.Hidden;
+
+            FillPrefixTree(ref prefixTree);
+
             UpDateChart();
         }
         /// <summary>
@@ -143,9 +151,15 @@ namespace ZhiMoney.ViewModel
             }
             else MessageBox.Show("Некорректные данные.");
         });
-
-        public Chart FilledChart(Chart chart, int days = 30)
+        /// <summary>
+        /// Заполняет график данными.
+        /// </summary>
+        /// <param name="days">Количество дней (необязательный параметр)</param>
+        /// <returns></returns>
+        public Chart FilledChart (int days = 30)
         {
+            var chart = new MyChart().Chart;
+
             incomeModel.AlgorthmSort(out DateTime[] dateIncome, out float[] summaIncome, days);
 
             expenseModel.AlgorthmSort(out DateTime[] dateExpense, out float[] summaExpense, days);
@@ -173,22 +187,29 @@ namespace ZhiMoney.ViewModel
             }
             return chart;
         }
+        /// <summary>
+        /// Обновление графика.
+        /// Обычно происходит при внесении пользователем новых данных, или при изменении SelectedItem в Combobox
+        /// </summary>
         public void UpDateChart()
         {
-            ChartChild = FilledChart(new MyChart().Chart);
+            //TO DO: наверное, лучше сделать этот метод async
+            ChartChild = FilledChart();
             WinFormsHost = new WindowsFormsHost
             {
                 Child = ChartChild
             };
         }
-
-        private PrefixTree<int> FillPrefixTree(PrefixTree<int> prefixTree)
+        /// <summary>
+        /// Заполняет префиксное дерево из базы данных.
+        /// </summary>
+        /// <param name="prefixTree"></param>
+        private void FillPrefixTree(ref PrefixTree prefixTree)
         {
             using (var context = new MyDbContext())
             {
                 List<string> itemsIncome = context.Incomes.Select(x => x.Name).ToList();
-                foreach(string item in itemsIncome)  prefixTree.Add(item,1);
-                return prefixTree;
+                foreach(string item in itemsIncome) prefixTree.Add(item);
             }
         }
 
