@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using ZhiMoney.Data;
+using ZhiMoney.DataBase;
 using ZhiMoney.Model;
 
 namespace ZhiMoney.ViewModel
@@ -19,6 +21,9 @@ namespace ZhiMoney.ViewModel
         private Chart chartChild;
         private WindowsFormsHost windowsFormsHost;
         private InputData inputData;
+        private Visibility hintVisibility;
+        private string hintName;
+        private PrefixTree prefixTree;
         IncomeModel incomeModel;
         ExpenseModel expenseModel;
 
@@ -31,6 +36,26 @@ namespace ZhiMoney.ViewModel
             {
                 chartChild = value;
                 OnPropertyChanged(nameof(ChartChild));
+            }
+        }
+
+        public Visibility HintVisibility
+        {
+            get => hintVisibility;
+            set
+            {
+                hintVisibility = value;
+                OnPropertyChanged(nameof(HintVisibility));
+            }
+        }
+
+        public string HintName
+        {
+            get => hintName;
+            set
+            {
+                hintName = value;
+                OnPropertyChanged(nameof(HintName));
             }
         }
 
@@ -51,8 +76,23 @@ namespace ZhiMoney.ViewModel
             {
                 name = value;
                 OnPropertyChanged(nameof(Name));
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    string hintName = string.Empty;
+                    if (prefixTree.TrySearchWord(value, ref hintName))
+                    {
+                        HintVisibility = Visibility.Visible;
+                        HintName = hintName;
+                    }
+                }
+                else
+                {
+                    HintVisibility = Visibility.Hidden;
+                    HintName = string.Empty;
+                }
             }
         }
+
         public string Summa
         {
             get => summa;
@@ -78,13 +118,23 @@ namespace ZhiMoney.ViewModel
         {
             incomeModel = new IncomeModel();
             expenseModel = new ExpenseModel();
-            Combobox = incomeModel.Combobox;
-            SelectedItem = Combobox[1];
+
             inputData = new InputData();
+
+            prefixTree = new PrefixTree();
+
+            Combobox = expenseModel.Combobox;
+
+            SelectedItem = Combobox[1];
+
+            HintVisibility = Visibility.Hidden;
+
+            expenseModel.FillPrefixTree(ref prefixTree);
+
             UpDateChart();
         }
         /// <summary>
-        /// Добавление записи о доходе в базу данных 
+        /// Добавление записи о расходе в базу данных.
         /// </summary>
         public ICommand AddRecord => new DelegateCommand(o =>
         {
@@ -92,12 +142,22 @@ namespace ZhiMoney.ViewModel
             if (!string.IsNullOrWhiteSpace(Name) && summa > 0)
             {
                 expenseModel.AddRecord(Name, summa);
+
                 UpDateChart();
+                prefixTree.Add(Name);
                 Name = Summa = string.Empty;
             }
             else MessageBox.Show("Некорректные данные.");
         });
-
+        /// <summary>
+        /// Заполняет график данными в зависимости от выбранного элемента ComboBox.
+        /// индекс [0] - график дохода
+        /// индекс [1] - график расхода
+        /// индекс [2] - график общий
+        /// </summary>
+        /// <param name="chart"></param>
+        /// <param name="days">количество дней, которое будет отображаться на графике</param>
+        /// <returns>Заполненный график</returns>
         public Chart FilledChart(Chart chart, int days = 30)
         {
             incomeModel.AlgorthmSort(out DateTime[] dateIncome, out float[] summaIncome, days);
@@ -127,6 +187,9 @@ namespace ZhiMoney.ViewModel
             }
             return chart;
         }
+        /// <summary>
+        /// Обновляет график.
+        /// </summary>
         public void UpDateChart()
         {
             ChartChild = FilledChart(new MyChart().Chart);
@@ -135,6 +198,7 @@ namespace ZhiMoney.ViewModel
                 Child = ChartChild
             };
         }
+
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string name)

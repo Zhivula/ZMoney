@@ -68,7 +68,7 @@
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" MinHeight="150"/>
+                <RowDefinition Height="*" MinHeight="175"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="0 2 2 2">
@@ -80,13 +80,14 @@
                 </Border>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="25*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <Label Content="Наименование" Foreground="White" FontSize="12" Margin="5 5 0 0"/>
-                        <TextBox Text="{Binding Name}" FontSize="16" Padding="3 0 0 0" x:Name="IncomeName" Background="White" VerticalAlignment="Top" Margin="10 25 10 0" Height="26">
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontSize="16" Padding="3 0 0 0" x:Name="IncomeName" Background="White" VerticalAlignment="Top" Margin="10 25 10 0" Height="26">
                             <TextBox.Template>
                                 <ControlTemplate>
                                     <Border CornerRadius="5"  BorderThickness="1" BorderBrush="#FF468AFF" Background="White">
@@ -96,7 +97,11 @@
                             </TextBox.Template>
                         </TextBox>
                     </Grid>
+                    <!--Всплывающая подсказка, начнет отобаражаться после начала ввода данных в textbox с именем-->
                     <Grid Grid.Row="1">
+                        <TextBlock Text="{Binding HintName}" Background="White" Margin="5 2 5 0" IsEnabled="False" Visibility="{Binding HintVisibility}"/>
+                    </Grid>
+                    <Grid Grid.Row="2">
                         <Label Content="Сумма (р.)" Foreground="White" FontSize="12"  Margin="5 5 0 0"/>
                         <TextBox Text="{Binding Summa}"  FontSize="16" Padding="3 0 0 0" x:Name="IncomeSumma" Background="White" VerticalAlignment="Top" Margin="10 25 10 0" Height="26">
                             <TextBox.Template>
@@ -108,7 +113,7 @@
                             </TextBox.Template>
                         </TextBox>
                     </Grid>
-                    <Grid Grid.Row="2">
+                    <Grid Grid.Row="3">
                         <Button x:Name="IncomeAddButton" Background="#303F9F" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 10" Command="{Binding AddRecord}">
                             <Border BorderBrush="#303F9F">
                                 <StackPanel Orientation="Horizontal" Width="140">

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms.DataVisualization.Charting;
+using ZhiMoney.Data;
 using ZhiMoney.DataBase;
 
 namespace ZhiMoney.Model
@@ -90,6 +91,19 @@ namespace ZhiMoney.Model
                         summa[i] += Summa[j];
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Заполняет префиксное дерево из базы данных.
+        /// </summary>
+        /// <param name="prefixTree"></param>
+        public void FillPrefixTree(ref PrefixTree prefixTree)
+        {
+            using (var context = new MyDbContext())
+            {
+                List<string> itemsIncome = context.Incomes.Select(x => x.Name).ToList();
+                foreach (string item in itemsIncome) prefixTree.Add(item);
             }
         }
     }

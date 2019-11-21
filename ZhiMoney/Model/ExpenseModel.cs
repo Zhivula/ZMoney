@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using ZhiMoney.Data;
 using ZhiMoney.DataBase;
 
 namespace ZhiMoney.Model
@@ -16,7 +15,7 @@ namespace ZhiMoney.Model
         public ExpenseModel()
         {
             Combobox = new ObservableCollection<string>()
-            {
+            {                
                  "   Доходы" ,
                  "   Расходы",
                  "   Общая"
@@ -87,6 +86,19 @@ namespace ZhiMoney.Model
                         summa[i] += Summa[j];
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Заполняет префиксное дерево из базы данных.
+        /// </summary>
+        /// <param name="prefixTree"></param>
+        public void FillPrefixTree(ref PrefixTree prefixTree)
+        {
+            using (var context = new MyDbContext())
+            {
+                List<string> itemsExpense = context.Expenses.Select(x => x.Name).ToList();
+                foreach (string item in itemsExpense) prefixTree.Add(item);
             }
         }
     }

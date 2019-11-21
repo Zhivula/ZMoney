@@ -133,7 +133,7 @@ namespace ZhiMoney.ViewModel
 
             HintVisibility = Visibility.Hidden;
 
-            FillPrefixTree(ref prefixTree);
+            incomeModel.FillPrefixTree(ref prefixTree);
 
             UpDateChart();
         }
@@ -147,6 +147,7 @@ namespace ZhiMoney.ViewModel
             {
                 incomeModel.AddRecord(Name, summa);
                 UpDateChart();
+                prefixTree.Add(Name);
                 Name = Summa = string.Empty;
             }
             else MessageBox.Show("Некорректные данные.");
@@ -199,18 +200,6 @@ namespace ZhiMoney.ViewModel
             {
                 Child = ChartChild
             };
-        }
-        /// <summary>
-        /// Заполняет префиксное дерево из базы данных.
-        /// </summary>
-        /// <param name="prefixTree"></param>
-        private void FillPrefixTree(ref PrefixTree prefixTree)
-        {
-            using (var context = new MyDbContext())
-            {
-                List<string> itemsIncome = context.Incomes.Select(x => x.Name).ToList();
-                foreach(string item in itemsIncome) prefixTree.Add(item);
-            }
         }
 
         #region PropertyChanged
