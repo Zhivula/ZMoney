@@ -14,6 +14,7 @@ using System.Windows.Input;
 using ZhiMoney.Data;
 using ZhiMoney.DataBase;
 using ZhiMoney.Model;
+using ZhiMoney.View;
 
 namespace ZhiMoney.ViewModel
 {
@@ -30,7 +31,9 @@ namespace ZhiMoney.ViewModel
         private PrefixTree prefixTree;
         private IncomeModel incomeModel;
         private ExpenseModel expenseModel;
-        
+        private PriceChangeUnitView priceChangeUnit;
+
+
 
 
         public ObservableCollection<string> Combobox { get; set; }
@@ -51,6 +54,16 @@ namespace ZhiMoney.ViewModel
             {
                 hintName = value;
                 OnPropertyChanged(nameof(HintName));
+            }
+        }
+
+        public PriceChangeUnitView PriceChangeUnit
+        {
+            get => priceChangeUnit;
+            set
+            {
+                priceChangeUnit = value;
+                OnPropertyChanged(nameof(PriceChangeUnit));
             }
         }
 
@@ -145,10 +158,10 @@ namespace ZhiMoney.ViewModel
             var summa = inputData.ConvertStringToFloat(Summa);
             if (!string.IsNullOrWhiteSpace(Name) && summa > 0)
             {
-                incomeModel.AddRecord(Name, summa);
-                UpDateChart();
-                prefixTree.Add(Name);
-                Name = Summa = string.Empty;
+                 incomeModel.AddRecord(Name, summa);
+                 UpDateChart();
+                 prefixTree.Add(Name);
+                 Name = Summa = string.Empty;                               
             }
             else MessageBox.Show("Некорректные данные.");
         });
@@ -200,6 +213,7 @@ namespace ZhiMoney.ViewModel
             {
                 Child = ChartChild
             };
+            PriceChangeUnit = new PriceChangeUnitView("Свободный бюджет", incomeModel);
         }
 
         #region PropertyChanged

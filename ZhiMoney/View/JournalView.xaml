@@ -12,7 +12,7 @@
             <ColumnDefinition Width="35*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <DataGrid Margin="10,10,10,0" AutoGenerateColumns="False" VerticalAlignment="Top" ItemsSource="{Binding Path=Items}" Grid.ColumnSpan="2" Height="37">
+            <DataGrid Margin="10,10,10,0" AutoGenerateColumns="False" VerticalAlignment="Top" ItemsSource="{Binding Items}">
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background"  Value="#283593"/>

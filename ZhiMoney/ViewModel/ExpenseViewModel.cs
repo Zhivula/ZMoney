@@ -141,11 +141,16 @@ namespace ZhiMoney.ViewModel
             var summa = inputData.ConvertStringToFloat(Summa);
             if (!string.IsNullOrWhiteSpace(Name) && summa > 0)
             {
-                expenseModel.AddRecord(Name, summa);
+                var currentSumma = incomeModel.GetCurrentSumma();
 
-                UpDateChart();
-                prefixTree.Add(Name);
-                Name = Summa = string.Empty;
+                if (currentSumma - summa > 0)
+                {
+                    expenseModel.AddRecord(Name, summa);
+                    UpDateChart();
+                    prefixTree.Add(Name);
+                    Name = Summa = string.Empty;
+                }
+                else MessageBox.Show("Недостаточно средств.");
             }
             else MessageBox.Show("Некорректные данные.");
         });

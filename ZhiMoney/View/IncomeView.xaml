@@ -67,10 +67,14 @@
         </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*" MinHeight="175"/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Margin="0 2 2 2">
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <ContentControl Content="{Binding PriceChangeUnit}"/>
+            </Grid>
+                    <Grid Grid.Row="1" Margin="0 2 2 2">
                     <!--Эффект цени-->
                     <Border CornerRadius="7"  Background="#3F51B5">
                         <Border.Effect>
@@ -124,6 +128,7 @@
                     </Grid>
 
                     </Grid>
+                    
                 </Grid>
             </Grid>
         </Grid>

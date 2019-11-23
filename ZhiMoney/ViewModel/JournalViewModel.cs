@@ -28,16 +28,19 @@ namespace ZhiMoney.ViewModel
             {
                 selecteditem = value;
                 OnPropertyChanged(nameof(SelectedItem));
+                UpDateTable();
             }
         }
 
         public JournalViewModel()
         {
             journalModel = new JournalModel();
+            Items = new List<IInputData>();
+
             Combobox = journalModel.Combobox;
             SelectedItem = Combobox.First();
-            Items = new List<IInputData>();
-            Items.AddRange(FillingTable());
+            
+            UpDateTable();
         }
         
         public List<IInputData> FillingTable()
@@ -52,6 +55,11 @@ namespace ZhiMoney.ViewModel
                 result = journalModel.GetItemsExpenses();
             }
             return result;
+        }
+
+        private void UpDateTable()
+        {
+            Items = FillingTable();
         }
 
         #region PropertyChanged

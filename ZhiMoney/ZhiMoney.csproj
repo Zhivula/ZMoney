@@ -80,17 +80,23 @@
     <Compile Include="DataBase\Income.cs" />
     <Compile Include="DataBase\IInputData.cs" />
     <Compile Include="DataBase\MyDbContext.cs" />
+    <Compile Include="Data\IInputDataModel.cs" />
     <Compile Include="Data\InputData.cs" />
     <Compile Include="Data\MyChart.cs" />
     <Compile Include="Data\Node.cs" />
     <Compile Include="Data\PrefixTree.cs" />
     <Compile Include="Model\JournalModel.cs" />
+    <Compile Include="Model\PriceChangeUnitModel.cs" />
     <Compile Include="Model\WelcomeWindowModel.cs" />
     <Compile Include="ViewModel\JournalViewModel.cs" />
+    <Compile Include="ViewModel\PriceChangeUnitViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\WelcomeWindowViewModel.cs" />
     <Compile Include="View\JournalView.xaml.cs">
       <DependentUpon>JournalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PriceChangeUnitView.xaml.cs">
+      <DependentUpon>PriceChangeUnitView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -136,6 +142,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\PriceChangeUnitView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

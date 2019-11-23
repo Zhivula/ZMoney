@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="ZhiMoney.View.PriceChangeUnitView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:ZhiMoney.View"
+             mc:Ignorable="d" Width="220" Height="200">
+    <Grid>
+        <ListView>
+            <ListViewItem Height="35" Background="#304FFE" BorderThickness="0 0 0 0.5" BorderBrush="#3D5AFE">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Title}" Foreground="White" HorizontalAlignment="Center" FontWeight="DemiBold" FontSize="14"/>
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem Height="35" Background="#536DFE" BorderThickness="0 0 0 0.5" BorderBrush="#3D5AFE">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="СЧЁТ:" Foreground="White" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding CurrentSumma}" Foreground="White" Margin="10 0 0 0"/>
+                    <TextBlock Text="р." Foreground="White" Margin="10 0 0 0"/>
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem Height="35" Background="#536DFE" BorderThickness="0 0 0 0.5" BorderBrush="#3D5AFE">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="НЕДЕЛЯ:" Foreground="White" Margin="0 0 10 0"/>
+                    <TextBlock Text="{Binding WeeklyPriceChange}" Foreground="White" Margin="0 0 10 0"/>
+                    <TextBlock Text="р." Foreground="White" Margin="10 0 0 0"/>
+                    <materialDesign:PackIcon Kind="{Binding WeekKind}" Height="20" Width="20"/>
+                    
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem Height="35" Background="#536DFE" BorderThickness="0 0 0 0.5" BorderBrush="#3D5AFE">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="МЕСЯЦ:" Foreground="White" Margin="0 0 10 0"/>
+                    <TextBlock Text="{Binding MonthlyPriceChange}" Foreground="White" Margin="0 0 10 0"/>
+                    <TextBlock Text="р." Foreground="White" Margin="10 0 0 0"/>
+                    <materialDesign:PackIcon Kind="{Binding MonthKind}" Height="20" Width="20"/>
+                </StackPanel>
+            </ListViewItem>
+            <ListViewItem Height="35" Background="#536DFE" BorderThickness="0 0 0 0.5" BorderBrush="#3D5AFE">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="ГОД:" Foreground="White" Margin="0 0 10 0"/>
+                    <TextBlock Text="{Binding OneYearPriceChange}" Foreground="White" Margin="0 0 10 0"/>
+                    <TextBlock Text="р." Foreground="White" Margin="10 0 0 0"/>
+                    <materialDesign:PackIcon Kind="{Binding YearKind}" Height="20" Width="20"/>
+                </StackPanel>
+            </ListViewItem>
+        </ListView>
+    </Grid>
+</UserControl>

@@ -13,7 +13,7 @@ using ZhiMoney.DataBase;
 
 namespace ZhiMoney.Model
 {
-    class IncomeModel
+    class IncomeModel : IInputDataModel
     {
         public ObservableCollection<string> Combobox;
 
@@ -104,6 +104,18 @@ namespace ZhiMoney.Model
             {
                 List<string> itemsIncome = context.Incomes.Select(x => x.Name).ToList();
                 foreach (string item in itemsIncome) prefixTree.Add(item);
+            }
+        }
+
+        public float GetCurrentSumma()
+        {          
+            using (var context = new MyDbContext())
+            {
+                float incomeSumma;
+                float expenseSumma;
+                incomeSumma = context.Incomes.Select(x => x.Summa).Sum();
+                expenseSumma = context.Expenses.Select(x => x.Summa).Sum();
+                return incomeSumma - expenseSumma;
             }
         }
     }
