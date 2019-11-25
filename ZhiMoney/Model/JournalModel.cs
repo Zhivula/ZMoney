@@ -14,9 +14,6 @@ namespace ZhiMoney.Model
     {
         public ObservableCollection<string> Combobox;
 
-        public List<IInputData> ItemsIncomes { get; set; }
-        public List<IInputData> ItemsExpense { get; set; }
-
         public JournalModel()
         {
             Combobox = new ObservableCollection<string>()
@@ -30,7 +27,7 @@ namespace ZhiMoney.Model
         ///Добавление в ItemsItemsIncomes данных Income
         public List<IInputData> GetItemsIncomes()
         {
-            ItemsIncomes = new List<IInputData>();
+            var ItemsIncomes = new List<IInputData>();
             using (var context = new MyDbContext())
             {
                 ItemsIncomes.AddRange(context.Incomes);
@@ -42,7 +39,7 @@ namespace ZhiMoney.Model
         ///Добавление в ItemsItemsExpenses данных Expense
         public List<IInputData> GetItemsExpenses()
         {
-            ItemsExpense = new List<IInputData>();
+            var ItemsExpense = new List<IInputData>();
             using (var context = new MyDbContext())
             {
                 ItemsExpense.AddRange(context.Expenses);

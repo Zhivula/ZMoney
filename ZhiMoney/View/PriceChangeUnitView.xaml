@@ -15,7 +15,7 @@
             </ListViewItem>
             <ListViewItem Height="35" Background="#536DFE" BorderThickness="0 0 0 0.5" BorderBrush="#3D5AFE">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="СЧЁТ:" Foreground="White" HorizontalAlignment="Center"/>
+                    <TextBlock Text=" ОСТАТОК НА СЧЁТЕ:" Foreground="White" HorizontalAlignment="Center"/>
                     <TextBlock Text="{Binding CurrentSumma}" Foreground="White" Margin="10 0 0 0"/>
                     <TextBlock Text="р." Foreground="White" Margin="10 0 0 0"/>
                 </StackPanel>
@@ -23,26 +23,26 @@
             <ListViewItem Height="35" Background="#536DFE" BorderThickness="0 0 0 0.5" BorderBrush="#3D5AFE">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="НЕДЕЛЯ:" Foreground="White" Margin="0 0 10 0"/>
-                    <TextBlock Text="{Binding WeeklyPriceChange}" Foreground="White" Margin="0 0 10 0"/>
-                    <TextBlock Text="р." Foreground="White" Margin="10 0 0 0"/>
-                    <materialDesign:PackIcon Kind="{Binding WeekKind}" Height="20" Width="20"/>
+                    <TextBlock Text="{Binding WeeklyPriceChange}" Foreground="White" Margin="0 0 5 0"/>
+                    <TextBlock Text="р.   " Foreground="White"/>
+                    <ContentControl Content="{Binding WeekPackIcon}" Height="20" Width="20"/>
                     
                 </StackPanel>
             </ListViewItem>
             <ListViewItem Height="35" Background="#536DFE" BorderThickness="0 0 0 0.5" BorderBrush="#3D5AFE">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="МЕСЯЦ:" Foreground="White" Margin="0 0 10 0"/>
-                    <TextBlock Text="{Binding MonthlyPriceChange}" Foreground="White" Margin="0 0 10 0"/>
-                    <TextBlock Text="р." Foreground="White" Margin="10 0 0 0"/>
-                    <materialDesign:PackIcon Kind="{Binding MonthKind}" Height="20" Width="20"/>
+                    <TextBlock Text="{Binding MonthlyPriceChange}" Foreground="White" Margin="0 0 5 0"/>
+                    <TextBlock Text="р.   " Foreground="White"/>
+                    <ContentControl Content="{Binding MonthPackIcon}" Height="20" Width="20"/>
                 </StackPanel>
             </ListViewItem>
             <ListViewItem Height="35" Background="#536DFE" BorderThickness="0 0 0 0.5" BorderBrush="#3D5AFE">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="ГОД:" Foreground="White" Margin="0 0 10 0"/>
-                    <TextBlock Text="{Binding OneYearPriceChange}" Foreground="White" Margin="0 0 10 0"/>
-                    <TextBlock Text="р." Foreground="White" Margin="10 0 0 0"/>
-                    <materialDesign:PackIcon Kind="{Binding YearKind}" Height="20" Width="20"/>
+                    <TextBlock Text="{Binding OneYearPriceChange}" Foreground="White" Margin="0 0 5 0"/>
+                    <TextBlock Text="р.   " Foreground="White"/>
+                    <ContentControl Content="{Binding YearPackIcon}" Height="20" Width="20"/>
                 </StackPanel>
             </ListViewItem>
         </ListView>

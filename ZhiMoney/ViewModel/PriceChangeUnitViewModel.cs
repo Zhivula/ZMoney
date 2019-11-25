@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using ZhiMoney.Data;
+using ZhiMoney.Model;
 
 namespace ZhiMoney.ViewModel
 {
@@ -15,9 +17,9 @@ namespace ZhiMoney.ViewModel
         private float weeklyPriceChange;
         private float monthlyPriceChange;
         private float oneYearPriceChange;
-        private PackIconKind weekKind;
-        private PackIconKind monthKind;
-        private PackIconKind yearKind;
+        private PackIcon weekPackIcon;
+        private PackIcon monthPackIcon;
+        private PackIcon yearPackIcon;
 
         public string Title { get; set; }
 
@@ -58,31 +60,31 @@ namespace ZhiMoney.ViewModel
             }
         }
 
-        public PackIconKind WeekKind
+        public PackIcon WeekPackIcon
         {
-            get => weekKind;
+            get => weekPackIcon;
             set
             {
-                weekKind = value;
-                OnPropertyChanged(nameof(WeekKind));
+                weekPackIcon = value;
+                OnPropertyChanged(nameof(WeekPackIcon));
             }
         }
-        public PackIconKind MonthKind
+        public PackIcon MonthPackIcon
         {
-            get => monthKind;
+            get => monthPackIcon;
             set
             {
-                monthKind = value;
-                OnPropertyChanged(nameof(MonthKind));
+                monthPackIcon = value;
+                OnPropertyChanged(nameof(MonthPackIcon));
             }
         }
-        public PackIconKind YearKind
+        public PackIcon YearPackIcon
         {
-            get => yearKind;
+            get => yearPackIcon;
             set
             {
-                yearKind = value;
-                OnPropertyChanged(nameof(YearKind));
+                yearPackIcon = value;
+                OnPropertyChanged(nameof(YearPackIcon));
 
             }
         }
@@ -90,6 +92,10 @@ namespace ZhiMoney.ViewModel
         public PriceChangeUnitViewModel(string title, IInputDataModel model)
         {
             Title = title;
+
+            WeekPackIcon = new PackIcon();
+            MonthPackIcon = new PackIcon();
+            YearPackIcon = new PackIcon();
 
             model.AlgorthmSort(out DateTime[] date, out float[] summa, 7);
             WeeklyPriceChange = summa.Sum();
@@ -99,14 +105,16 @@ namespace ZhiMoney.ViewModel
             OneYearPriceChange = summa.Sum();
             CurrentSumma = model.GetCurrentSumma();
 
-            //if(model is IncomeViewModel)
-            //{
-            //    WeekKind = MonthKind = YearKind = PackIconKind.TrendingUp;              
-            //}
-            //if (model is ExpenseViewModel)
-            //{
-            //    WeekKind = MonthKind = YearKind = PackIconKind.TrendingDown;
-            //}
+            if (model is IncomeModel)
+            {
+                WeekPackIcon.Kind = MonthPackIcon.Kind = YearPackIcon.Kind = PackIconKind.TrendingUp;
+                WeekPackIcon.Foreground = MonthPackIcon.Foreground = YearPackIcon.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+            }
+            if (model is ExpenseModel)
+            {
+                WeekPackIcon.Kind = MonthPackIcon.Kind = YearPackIcon.Kind = PackIconKind.TrendingDown;
+                WeekPackIcon.Foreground = MonthPackIcon.Foreground = YearPackIcon.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            }
         }
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

@@ -34,8 +34,6 @@ namespace ZhiMoney.ViewModel
         private PriceChangeUnitView priceChangeUnit;
 
 
-
-
         public ObservableCollection<string> Combobox { get; set; }
 
         public Visibility HintVisibility

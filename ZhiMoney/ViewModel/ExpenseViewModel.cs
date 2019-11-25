@@ -10,6 +10,7 @@ using System.Windows.Input;
 using ZhiMoney.Data;
 using ZhiMoney.DataBase;
 using ZhiMoney.Model;
+using ZhiMoney.View;
 
 namespace ZhiMoney.ViewModel
 {
@@ -24,8 +25,9 @@ namespace ZhiMoney.ViewModel
         private Visibility hintVisibility;
         private string hintName;
         private PrefixTree prefixTree;
-        IncomeModel incomeModel;
-        ExpenseModel expenseModel;
+        private IncomeModel incomeModel;
+        private ExpenseModel expenseModel;
+        private PriceChangeUnitView priceChangeUnit;
 
         public ObservableCollection<string> Combobox { get; set; }
 
@@ -66,6 +68,16 @@ namespace ZhiMoney.ViewModel
             {
                 windowsFormsHost = value;
                 OnPropertyChanged(nameof(WinFormsHost));
+            }
+        }
+
+        public PriceChangeUnitView PriceChangeUnit
+        {
+            get => priceChangeUnit;
+            set
+            {
+                priceChangeUnit = value;
+                OnPropertyChanged(nameof(PriceChangeUnit));
             }
         }
 
@@ -202,6 +214,7 @@ namespace ZhiMoney.ViewModel
             {
                 Child = ChartChild
             };
+            PriceChangeUnit = new PriceChangeUnitView("Свободный бюджет", expenseModel);
         }
 
         #region PropertyChanged

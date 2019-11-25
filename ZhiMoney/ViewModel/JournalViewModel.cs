@@ -15,9 +15,19 @@ namespace ZhiMoney.ViewModel
     class JournalViewModel : INotifyPropertyChanged
     {
         private string selecteditem;
+        private List<IInputData> items;
         private JournalModel journalModel;
 
-        public List<IInputData> Items { get; set; }
+        public List<IInputData> Items
+        {
+            get => items;
+            set
+            {
+                items = value;
+                OnPropertyChanged(nameof(Items));
+            }
+
+        }
 
         public ObservableCollection<string> Combobox { get; set; }
 
@@ -27,8 +37,8 @@ namespace ZhiMoney.ViewModel
             set
             {
                 selecteditem = value;
-                OnPropertyChanged(nameof(SelectedItem));
-                UpDateTable();
+                Items = FillingTable();
+                OnPropertyChanged(nameof(SelectedItem));               
             }
         }
 
@@ -39,8 +49,8 @@ namespace ZhiMoney.ViewModel
 
             Combobox = journalModel.Combobox;
             SelectedItem = Combobox.First();
-            
-            UpDateTable();
+
+            Items = FillingTable();
         }
         
         public List<IInputData> FillingTable()
@@ -55,11 +65,6 @@ namespace ZhiMoney.ViewModel
                 result = journalModel.GetItemsExpenses();
             }
             return result;
-        }
-
-        private void UpDateTable()
-        {
-            Items = FillingTable();
         }
 
         #region PropertyChanged
