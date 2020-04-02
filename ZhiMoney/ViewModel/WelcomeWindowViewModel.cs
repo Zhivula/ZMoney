@@ -123,7 +123,7 @@ namespace ZhiMoney.ViewModel
         {
             window.Close();
         }
-        private void Move()
+        public void Move()
         {
             window.DragMove();
         }

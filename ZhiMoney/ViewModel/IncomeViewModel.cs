@@ -31,8 +31,10 @@ namespace ZhiMoney.ViewModel
         private PrefixTree prefixTree;
         private IncomeModel incomeModel;
         private ExpenseModel expenseModel;
-        private PriceChangeUnitView priceChangeUnit;
-
+        private PriceChangeUnitView priceChangeUnit;     
+        
+        public System.Windows.Controls.Grid FirstDashboard { get; set; }
+        public System.Windows.Controls.Grid MostFrequentIncomesDashboard { get; set; }
 
         public ObservableCollection<string> Combobox { get; set; }
 
@@ -147,6 +149,11 @@ namespace ZhiMoney.ViewModel
             incomeModel.FillPrefixTree(ref prefixTree);
 
             UpDateChart();
+
+            FirstDashboard = new System.Windows.Controls.Grid();
+            FirstDashboard.Children.Add(new DashboardView(new DashboardModel()));
+            MostFrequentIncomesDashboard = new System.Windows.Controls.Grid();
+            MostFrequentIncomesDashboard.Children.Add(new DashboardView(new MostFrequentIncomesDashboardModel()));
         }
         /// <summary>
         /// Добавление записи о доходе в базу данных 

@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="ZhiMoney.View.CalculatorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:ZhiMoney.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="210" d:DesignWidth="400">
+    <Grid>
+        <Border CornerRadius="7" Background="White">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0" Direction="90" Color="Black" Opacity="0.75"  BlurRadius="10.0" />
+            </Border.Effect>
+        </Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="0">
+                <Label Content="Начальная сумма (р.):" Foreground="Gray" FontSize="14" HorizontalAlignment="Center"/>
+                <TextBox Margin="0 30 0 10" Background="#FFF9F9F9"  MinWidth="10" MaxWidth="100" FontSize="18" Text="{Binding StartSumma}" Padding="2 -2 0 0"/>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="1">
+                <Label Content="Срок инвестирования (г.):" Foreground="Gray" FontSize="14" HorizontalAlignment="Center"/>
+                <TextBox Margin="0 30 0 10" Background="#FFF9F9F9" MinWidth="10" MaxWidth="100" FontSize="18" Text="{Binding InvestmentPeriod}" Padding="2 -2 0 0"/>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="2">
+                <Label Content="{Binding result}" Foreground="#09AF00" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold"/>
+            </Grid>
+            <Grid Grid.ColumnSpan="2"  Grid.Row="2">
+                <Border BorderThickness="0 5 0 0" BorderBrush="#304FFE"/>
+            </Grid>
+            <Grid Grid.Column="1"  Grid.Row="0">
+                <Label Content="Процентная ставка (%):" Foreground="Gray" FontSize="14" HorizontalAlignment="Center"/>
+                <TextBox Margin="0 30 0 10" Background="#FFF9F9F9" MinWidth="10" MaxWidth="100" FontSize="18" Text="{Binding PercentRate}" Padding="2 -2 0 0"/>
+
+            </Grid>
+            <Grid Grid.Column="1"  Grid.Row="1">
+                <Label Content="Инфляция (%):" Foreground="Gray" FontSize="14" HorizontalAlignment="Center"/>
+                <TextBox Margin="0 30 0 10" Background="#FFF9F9F9" MinWidth="10" MaxWidth="100" FontSize="18" Text="{Binding PercentInflation}" Padding="2 -2 0 0"/>
+            </Grid>
+
+            <Button Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" Margin="20,0,10,0" VerticalAlignment="Center"  Height="30" Background="#303F9F" FontSize="15" Command="{Binding Click}">
+                <Border BorderBrush="#303F9F">
+                    <StackPanel Orientation="Horizontal" Width="140">
+                        <materialDesign:PackIcon Kind="Contrast" Height="20" Width="20" HorizontalAlignment="Left" Foreground="White" />
+                        <TextBlock Text="РАССЧИТАТЬ" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="16"/>
+                    </StackPanel>
+                </Border>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

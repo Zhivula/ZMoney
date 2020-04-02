@@ -25,5 +25,10 @@ namespace ZhiMoney.View
             InitializeComponent();
             DataContext = new WelcomeWindowViewModel();
         }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }

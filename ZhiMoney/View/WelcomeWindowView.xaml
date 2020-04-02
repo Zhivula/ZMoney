@@ -12,7 +12,7 @@
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" MouseDown="Grid_MouseDown">
             <Border CornerRadius="10 10 0 0" Background="Blue"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding CloseWindow}">

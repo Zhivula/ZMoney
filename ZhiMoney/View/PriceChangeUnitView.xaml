@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:ZhiMoney.View"
-             mc:Ignorable="d" Width="220" Height="200">
-    <Grid>
-        <ListView>
+             mc:Ignorable="d">
+    <Grid Height="Auto" Width="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListViewItem Height="35" Background="#304FFE" BorderThickness="0 0 0 0.5" BorderBrush="#3D5AFE">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Title}" Foreground="White" HorizontalAlignment="Center" FontWeight="DemiBold" FontSize="14"/>
