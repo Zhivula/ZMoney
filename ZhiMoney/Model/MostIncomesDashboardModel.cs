@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using ZhiMoney.Data;
 using ZhiMoney.DataBase;
 
 namespace ZhiMoney.Model
 {
-    class MostFrequentIncomesDashboardModel : Dashboard
+    class MostIncomesDashboardModel : Dashboard
     {
-        public MostFrequentIncomesDashboardModel()
+        public MostIncomesDashboardModel()
         {
-            mainTitle = "Наиболее частые";
+            mainTitle = "Самые доходные";
             leftTitle = "Наименование";
-            rightTitle = "Количество";
+            rightTitle = "Сумма(р.)";
 
             Names = new string[5];
             Values = new float[5];
@@ -27,19 +29,19 @@ namespace ZhiMoney.Model
                     Names = set.ToArray();
 
                     var incomes = new Income[Names.Count()];
-
+                    
                     for (int i = 0; i < Names.Count(); i++)
                     {
                         var j = Names[i];
                         incomes[i] = new Income
                         {
-                            Summa = context.Incomes.Where(x => x.Name == j).Count(),
+                            Summa = context.Incomes.Where(x => x.Name == j).Select(o => o.Summa).Sum(),
                             Name = j
                         };
                     }
-                    var result = incomes.OrderByDescending(u => u.Summa).ThenBy(u => u.Name);
-                    Names = result.Select(u => u.Name).ToArray();
-                    Values = result.Select(u => u.Summa).ToArray();
+                    var result = incomes.OrderByDescending(u=>u.Summa).ThenBy(u=>u.Name);
+                    Names = result.Select(u=> u.Name).ToArray();
+                    Values = result.Select(u=> u.Summa).ToArray();
                 }
             }
         }

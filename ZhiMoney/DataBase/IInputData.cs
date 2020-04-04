@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZhiMoney.DataBase
 {
-    interface IInputData : IComparable
+    public interface IInputData : IComparable
     {
         int Id { get; set; }
         float Summa { get; set; }

@@ -16,6 +16,7 @@ namespace ZhiMoney.Model
     class IncomeModel : IInputDataModel
     {
         public ObservableCollection<string> Combobox;
+        public ObservableCollection<int> ComboboxDate;
 
         public IncomeModel()
         {
@@ -24,6 +25,13 @@ namespace ZhiMoney.Model
                  "   Доходы" ,
                  "   Расходы",
                  "   Общая"
+            };
+            ComboboxDate = new ObservableCollection<int>()
+            {
+                30,
+                90,
+                180,
+                365
             };
         }
         /// <summary>
@@ -111,12 +119,21 @@ namespace ZhiMoney.Model
         {          
             using (var context = new MyDbContext())
             {
-                float incomeSumma;
-                float expenseSumma;
-                incomeSumma = context.Incomes.Select(x => x.Summa).Sum();
-                expenseSumma = context.Expenses.Select(x => x.Summa).Sum();
-                return incomeSumma - expenseSumma;
+                if (context.Incomes.Count() != 0 && context.Expenses.Count() != 0)
+                {
+                    float incomeSumma;
+                    float expenseSumma;
+                    incomeSumma = context.Incomes.Select(x => x.Summa).Sum();
+                    expenseSumma = context.Expenses.Select(x => x.Summa).Sum();
+                    return incomeSumma - expenseSumma;
+                }
+                else return 0;
             }
+        }
+
+        public IInputData GetLastElement()
+        {
+            throw new NotImplementedException();
         }
     }
 }

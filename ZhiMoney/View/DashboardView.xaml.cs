@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using ZhiMoney.Abstraction;
+using ZhiMoney.Data;
 
 namespace ZhiMoney.View
 {

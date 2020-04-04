@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZhiMoney.DataBase;
 
 namespace ZhiMoney.Data
 {
@@ -17,5 +18,7 @@ namespace ZhiMoney.Data
         float GetCurrentSumma();
 
         void AlgorthmSort(out DateTime[] date, out float[] summa, int days);
+
+        IInputData GetLastElement();
     }
 }

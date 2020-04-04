@@ -85,20 +85,24 @@
     <Compile Include="Data\MyChart.cs" />
     <Compile Include="Data\Node.cs" />
     <Compile Include="Data\PrefixTree.cs" />
-    <Compile Include="Abstraction\Dashboard.cs" />
+    <Compile Include="Data\Dashboard.cs" />
     <Compile Include="Interface\IDashboard.cs" />
     <Compile Include="Model\CalculatorModel.cs" />
-    <Compile Include="Model\DashboardModel.cs" />
+    <Compile Include="Model\MostExpensesDashboardModel.cs" />
+    <Compile Include="Model\MostFrequentExpensesDashboardModel.cs" />
+    <Compile Include="Model\MostIncomesDashboardModel.cs" />
     <Compile Include="Model\JournalModel.cs" />
     <Compile Include="Model\MostFrequentIncomesDashboardModel.cs" />
     <Compile Include="Model\PriceChangeUnitModel.cs" />
     <Compile Include="Model\WelcomeWindowModel.cs" />
+    <Compile Include="Model\СancellationLastInputModel.cs" />
     <Compile Include="ViewModel\CalculatorViewModel.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
     <Compile Include="ViewModel\JournalViewModel.cs" />
     <Compile Include="ViewModel\PriceChangeUnitViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\WelcomeWindowViewModel.cs" />
+    <Compile Include="ViewModel\СancellationLastInputViewModel.cs" />
     <Compile Include="View\CalculatorView.xaml.cs">
       <DependentUpon>CalculatorView.xaml</DependentUpon>
     </Compile>
@@ -116,6 +120,9 @@
     </Compile>
     <Compile Include="View\WelcomeWindowView.xaml.cs">
       <DependentUpon>WelcomeWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\СancellationLastInputView.xaml.cs">
+      <DependentUpon>СancellationLastInputView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\CalculatorView.xaml">
       <SubType>Designer</SubType>
@@ -172,6 +179,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WelcomeWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\СancellationLastInputView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

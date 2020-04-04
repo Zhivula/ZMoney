@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="ZhiMoney.View.СancellationLastInputView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZhiMoney.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="130" d:DesignWidth="200">
+    <UserControl.Resources>
+        <Style x:Key="LabelStyle">
+            <Setter Property="Control.FontFamily" Value="Calibri" />
+            <Setter Property="Control.FontSize" Value="16" />
+            <Setter Property="Control.Background" Value="White" />
+            <Setter Property="Control.Padding" Value="5 3 0 0" />
+            <Setter Property="Control.Foreground" Value="#FF4C4C4C"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="5">
+        <!--Эффект цени-->
+        <Border CornerRadius="7"  Background="#3F51B5">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0" Direction="90" Color="Black" Opacity="0.75"  BlurRadius="10.0" />
+            </Border.Effect>
+        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="5">
+                <TextBlock Foreground="White" FontSize="15" Text="Отмена последнего ввода" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Style="{StaticResource LabelStyle}" Content="{Binding Name}" Margin="0 0 5 0"/>
+                    <Label Grid.Column="1" Style="{StaticResource LabelStyle}" Content="{Binding Summa}" Margin="5 0 0 0"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Background="#303F9F" VerticalAlignment="Center" Command="{Binding Cancellation}" Margin="0 0 0 10">
+                    <Border BorderBrush="#303F9F">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Garbage" Height="20" Width="20" HorizontalAlignment="Left" Foreground="White" />
+                            <TextBlock Text="УДАЛИТЬ" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="16"/>
+                        </StackPanel>
+                    </Border>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

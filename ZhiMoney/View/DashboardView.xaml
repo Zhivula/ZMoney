@@ -16,10 +16,24 @@
             <Setter Property="Control.Foreground" Value="#FF4C4C4C"/>
         </Style>
     </UserControl.Resources>
-    <Grid Margin="5" MaxHeight="300" MinHeight="230">
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Button.Click">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard TargetProperty="Angle" TargetName="IconTransform">
+                        <DoubleAnimation By="180"
+                                         AutoReverse="False"
+                                         Duration="0:0:0.2" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+    <Grid Margin="5" MaxHeight="300">
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
-            <RowDefinition Height="100*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <!--Эффект цени-->
@@ -38,7 +52,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <ListBox Grid.Row="1" ItemsSource="{Binding ItemsSource}" ScrollViewer.VerticalScrollBarVisibility="Disabled" IsEnabled="False">
+                <ListBox Grid.Row="1" ItemsSource="{Binding ItemsSource}" IsEnabled="False">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -71,8 +85,13 @@
         </Grid>
         <Grid Grid.Row="2">
             <Border CornerRadius="0 0 7 7" Background="#3F51B5" Style="{x:Null}" BorderThickness="0 1 0 0" BorderBrush="CadetBlue">
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0">
-                    <materialDesign:PackIcon Kind="ChevronDown" Width="28" Height="28" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Margin="-10 -20"/>
+                <Button Command="{Binding ShowEverything}" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0">
+                    <StackPanel>
+                        <StackPanel.RenderTransform>
+                            <RotateTransform x:Name="IconTransform" CenterY="-7" CenterX="7"/>
+                        </StackPanel.RenderTransform>
+                        <materialDesign:PackIcon x:Name="Icon" Kind="ChevronDown" Width="28" Height="28" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Margin="-10 -20"/>
+                    </StackPanel>
                 </Button>
             </Border>
         </Grid>

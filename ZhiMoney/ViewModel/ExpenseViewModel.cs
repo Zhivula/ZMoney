@@ -19,6 +19,7 @@ namespace ZhiMoney.ViewModel
         private string name;
         private string summa;
         private string selecteditem;
+        private int selecteditemDate;
         private Chart chartChild;
         private WindowsFormsHost windowsFormsHost;
         private InputData inputData;
@@ -29,7 +30,11 @@ namespace ZhiMoney.ViewModel
         private ExpenseModel expenseModel;
         private PriceChangeUnitView priceChangeUnit;
 
+        public System.Windows.Controls.Grid MostExpensesDashboard { get; set; }
+        public System.Windows.Controls.Grid MostFrequentExpensesDashboard { get; set; }
+
         public ObservableCollection<string> Combobox { get; set; }
+        public ObservableCollection<int> ComboboxDate { get; set; }
 
         public Chart ChartChild
         {
@@ -125,6 +130,16 @@ namespace ZhiMoney.ViewModel
                 OnPropertyChanged(nameof(SelectedItem));
             }
         }
+        public int SelectedItemDate
+        {
+            get => selecteditemDate;
+            set
+            {
+                selecteditemDate = value;
+                UpDateChart(value);
+                OnPropertyChanged(nameof(SelectedItemDate));
+            }
+        }
 
         public ExpenseViewModel()
         {
@@ -144,6 +159,11 @@ namespace ZhiMoney.ViewModel
             expenseModel.FillPrefixTree(ref prefixTree);
 
             UpDateChart();
+
+            MostExpensesDashboard = new System.Windows.Controls.Grid();
+            MostExpensesDashboard.Children.Add(new DashboardView(new MostExpensesDashboardModel()));
+            MostFrequentExpensesDashboard = new System.Windows.Controls.Grid();
+            MostFrequentExpensesDashboard.Children.Add(new DashboardView(new MostFrequentExpensesDashboardModel()));
         }
         /// <summary>
         /// Добавление записи о расходе в базу данных.
@@ -175,8 +195,10 @@ namespace ZhiMoney.ViewModel
         /// <param name="chart"></param>
         /// <param name="days">количество дней, которое будет отображаться на графике</param>
         /// <returns>Заполненный график</returns>
-        public Chart FilledChart(Chart chart, int days = 30)
+        public Chart FilledChart(int days = 30)
         {
+            var chart = new MyChart().Chart;
+
             incomeModel.AlgorthmSort(out DateTime[] dateIncome, out float[] summaIncome, days);
 
             expenseModel.AlgorthmSort(out DateTime[] dateExpense, out float[] summaExpense, days);
@@ -207,9 +229,9 @@ namespace ZhiMoney.ViewModel
         /// <summary>
         /// Обновляет график.
         /// </summary>
-        public void UpDateChart()
+        public void UpDateChart(int days = 30)
         {
-            ChartChild = FilledChart(new MyChart().Chart);
+            ChartChild = FilledChart(days);
             WinFormsHost = new WindowsFormsHost
             {
                 Child = ChartChild

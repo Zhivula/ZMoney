@@ -10,7 +10,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*" MinWidth="200"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
             <Grid.RowDefinitions>
@@ -32,7 +32,9 @@
                         <StackPanel Orientation="Horizontal">
                         <Label Content="Выбор раздела:" VerticalAlignment="Center" Foreground="Gray" FontSize="12"/>
                         <ComboBox ItemsSource="{Binding Path=Combobox}" SelectedItem="{Binding Path=SelectedItem}" Width="90" VerticalAlignment="Center" Background="#7986CB" Foreground="#1A237E" FontSize="12" BorderThickness="0"/>
-                        <!--БЛОК ОБОЗНАЧЕНИЙ И ПОЯСНЕНИЙ ДЛЯ ГРАФИКА-->
+                            <Label Content="Период:" VerticalAlignment="Center" Foreground="Gray" FontSize="12" Margin="10 0 0 0"/>
+                            <ComboBox ItemsSource="{Binding Path=ComboboxDate}" SelectedItem="{Binding Path=SelectedItemDate}" Width="90" VerticalAlignment="Center" Background="#7986CB" Foreground="#1A237E" FontSize="12" BorderThickness="0"/>
+                            <!--БЛОК ОБОЗНАЧЕНИЙ И ПОЯСНЕНИЙ ДЛЯ ГРАФИКА-->
                         
                             <!--<Rectangle Fill="Blue" Height="15" Margin="10 0 0 0" Stroke="Gray" Width="15"/>
                             <Label Content="- Общая линия" Foreground="Gray" FontSize="14" VerticalAlignment="Center"/>
@@ -53,7 +55,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" Height="Auto">
                     <Grid>
-                        <ContentControl Content="{Binding FirstDashboard}" VerticalAlignment="Top"/>
+                        <ContentControl Content="{Binding MostIncomesDashboard}" VerticalAlignment="Top"/>
                     </Grid>
                 </Grid>
                 <Grid Grid.Column="1" Height="Auto">
@@ -65,6 +67,7 @@
         </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -115,19 +118,22 @@
                         </TextBox>
                     </Grid>
                     <Grid Grid.Row="3">
-                        <Button x:Name="IncomeAddButton" Background="#303F9F" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 10" Command="{Binding AddRecord}">
-                                <Border BorderBrush="#303F9F">
-                                    <StackPanel Orientation="Horizontal" Width="140">
-                                        <materialDesign:PackIcon Kind="Check" Height="20" Width="20" HorizontalAlignment="Left" Foreground="White" />
-                                        <TextBlock Text="ДОБАВИТЬ" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="16"/>
-                                    </StackPanel>
-                                </Border>
-                            </Button>
+                        <Button Background="#303F9F" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 10" Command="{Binding AddRecord}">
+                            <Border BorderBrush="#303F9F">
+                                <StackPanel Orientation="Horizontal" Width="140">
+                                    <materialDesign:PackIcon Kind="Check" Height="20" Width="20" HorizontalAlignment="Left" Foreground="White" />
+                                    <TextBlock Text="ДОБАВИТЬ" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontSize="16"/>
+                                </StackPanel>
+                            </Border>
+                        </Button>
                     </Grid>
 
                     </Grid>
                     
                 </Grid>
+            <Grid Grid.Row="2">
+                <ContentControl Content="{Binding Cancellation}"/>
             </Grid>
+        </Grid>
         </Grid>
 </UserControl>

@@ -15,6 +15,7 @@ using ZhiMoney.Data;
 using ZhiMoney.DataBase;
 using ZhiMoney.Model;
 using ZhiMoney.View;
+using SWC = System.Windows.Controls;
 
 namespace ZhiMoney.ViewModel
 {
@@ -23,6 +24,7 @@ namespace ZhiMoney.ViewModel
         private string name;
         private string summa;
         private string selecteditem;
+        private int selecteditemDate;
         private Chart chartChild;
         private WindowsFormsHost windowsFormsHost;
         private InputData inputData;
@@ -31,12 +33,32 @@ namespace ZhiMoney.ViewModel
         private PrefixTree prefixTree;
         private IncomeModel incomeModel;
         private ExpenseModel expenseModel;
-        private PriceChangeUnitView priceChangeUnit;     
-        
-        public System.Windows.Controls.Grid FirstDashboard { get; set; }
-        public System.Windows.Controls.Grid MostFrequentIncomesDashboard { get; set; }
+        private PriceChangeUnitView priceChangeUnit;
+        private СancellationLastInputView cancellation;
+        private SWC.Grid mostFrequentIncomesDashboard;
+        private SWC.Grid mostIncomesDashboard;
+
+        public SWC.Grid MostIncomesDashboard
+        {
+            get => mostIncomesDashboard;
+            set
+            {
+                mostIncomesDashboard = value;
+                OnPropertyChanged(nameof(MostIncomesDashboard));
+            }
+        }
+        public SWC.Grid MostFrequentIncomesDashboard
+        {
+            get => mostFrequentIncomesDashboard;
+            set
+            {
+                mostFrequentIncomesDashboard = value;
+                OnPropertyChanged(nameof(MostFrequentIncomesDashboard));
+            }
+        }
 
         public ObservableCollection<string> Combobox { get; set; }
+        public ObservableCollection<int> ComboboxDate { get; set; }
 
         public Visibility HintVisibility
         {
@@ -64,6 +86,15 @@ namespace ZhiMoney.ViewModel
             {
                 priceChangeUnit = value;
                 OnPropertyChanged(nameof(PriceChangeUnit));
+            }
+        }
+        public СancellationLastInputView Cancellation
+        {
+            get => cancellation;
+            set
+            {
+                cancellation = value;
+                OnPropertyChanged(nameof(Cancellation));
             }
         }
 
@@ -126,8 +157,18 @@ namespace ZhiMoney.ViewModel
             set
             {
                 selecteditem = value;
-                UpDateChart();
+                UpDateChart(SelectedItemDate);
                 OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
+        public int SelectedItemDate
+        {
+            get => selecteditemDate;
+            set
+            {
+                selecteditemDate = value;
+                UpDateChart(value);
+                OnPropertyChanged(nameof(SelectedItemDate));
             }
         }
 
@@ -140,9 +181,14 @@ namespace ZhiMoney.ViewModel
 
             prefixTree = new PrefixTree();
 
+            MostIncomesDashboard = new SWC.Grid();
+            MostFrequentIncomesDashboard = new SWC.Grid();
+
             Combobox = incomeModel.Combobox;
+            ComboboxDate = incomeModel.ComboboxDate;
 
             SelectedItem = Combobox.First();
+            SelectedItemDate = ComboboxDate.First();
 
             HintVisibility = Visibility.Hidden;
 
@@ -150,9 +196,7 @@ namespace ZhiMoney.ViewModel
 
             UpDateChart();
 
-            FirstDashboard = new System.Windows.Controls.Grid();
-            FirstDashboard.Children.Add(new DashboardView(new DashboardModel()));
-            MostFrequentIncomesDashboard = new System.Windows.Controls.Grid();
+            MostIncomesDashboard.Children.Add(new DashboardView(new MostIncomesDashboardModel()));
             MostFrequentIncomesDashboard.Children.Add(new DashboardView(new MostFrequentIncomesDashboardModel()));
         }
         /// <summary>
@@ -210,16 +254,18 @@ namespace ZhiMoney.ViewModel
         /// Обновление графика.
         /// Обычно происходит при внесении пользователем новых данных, или при изменении SelectedItem в Combobox
         /// </summary>
-        public void UpDateChart()
+        public void UpDateChart(int days = 30)
         {
             //TO DO: наверное, лучше сделать этот метод async
-            ChartChild = FilledChart();
+            ChartChild = FilledChart(days);
             WinFormsHost = new WindowsFormsHost
             {
                 Child = ChartChild
             };
             PriceChangeUnit = new PriceChangeUnitView("Свободный бюджет", incomeModel);
+            Cancellation = new СancellationLastInputView();
         }
+
 
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
