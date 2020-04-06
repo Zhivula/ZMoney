@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ZhiMoney.Data;
+using ZhiMoney.DataBase;
 using ZhiMoney.Model;
 
 namespace ZhiMoney.ViewModel
@@ -33,11 +35,12 @@ namespace ZhiMoney.ViewModel
             }
         }
 
-        private СancellationLastInputIncomesModel model;
+        private ICancellation model;
 
-        public СancellationLastInputViewModel()
+        public СancellationLastInputViewModel(IInputData data)
         {
-            model = new СancellationLastInputIncomesModel();
+            if (data is Income) model = new СancellationLastInputIncomesModel();
+            if (data is Expense) model = new CancellationLastInputExpensesModel();
             InstallingTheLastElement();
         }
         public ICommand Cancellation => new DelegateCommand(o =>

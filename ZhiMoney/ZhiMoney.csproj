@@ -80,6 +80,7 @@
     <Compile Include="DataBase\Income.cs" />
     <Compile Include="DataBase\IInputData.cs" />
     <Compile Include="DataBase\MyDbContext.cs" />
+    <Compile Include="Data\ICancellation.cs" />
     <Compile Include="Data\IInputDataModel.cs" />
     <Compile Include="Data\InputData.cs" />
     <Compile Include="Data\MyChart.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Data\Dashboard.cs" />
     <Compile Include="Interface\IDashboard.cs" />
     <Compile Include="Model\CalculatorModel.cs" />
+    <Compile Include="Model\CancellationLastInputExpensesModel.cs" />
     <Compile Include="Model\MostExpensesDashboardModel.cs" />
     <Compile Include="Model\MostFrequentExpensesDashboardModel.cs" />
     <Compile Include="Model\MostIncomesDashboardModel.cs" />
@@ -95,14 +97,14 @@
     <Compile Include="Model\MostFrequentIncomesDashboardModel.cs" />
     <Compile Include="Model\PriceChangeUnitModel.cs" />
     <Compile Include="Model\WelcomeWindowModel.cs" />
-    <Compile Include="Model\СancellationLastInputModel.cs" />
+    <Compile Include="Model\СancellationLastInputIncomesModel.cs" />
     <Compile Include="ViewModel\CalculatorViewModel.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
     <Compile Include="ViewModel\JournalViewModel.cs" />
     <Compile Include="ViewModel\PriceChangeUnitViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\WelcomeWindowViewModel.cs" />
-    <Compile Include="ViewModel\СancellationLastInputViewModel.cs" />
+    <Compile Include="ViewModel\СancellationLastInputIncomesViewModel.cs" />
     <Compile Include="View\CalculatorView.xaml.cs">
       <DependentUpon>CalculatorView.xaml</DependentUpon>
     </Compile>

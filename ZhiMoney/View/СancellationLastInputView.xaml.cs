@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ZhiMoney.DataBase;
 
 namespace ZhiMoney.View
 {
@@ -20,10 +21,10 @@ namespace ZhiMoney.View
     /// </summary>
     public partial class СancellationLastInputView : UserControl
     {
-        public СancellationLastInputView()
+        public СancellationLastInputView(IInputData data)
         {
             InitializeComponent();
-            DataContext = new ViewModel.СancellationLastInputViewModel();
+            DataContext = new ViewModel.СancellationLastInputViewModel(data);
         }
     }
 }

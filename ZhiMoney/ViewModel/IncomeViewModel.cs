@@ -263,7 +263,7 @@ namespace ZhiMoney.ViewModel
                 Child = ChartChild
             };
             PriceChangeUnit = new PriceChangeUnitView("Свободный бюджет", incomeModel);
-            Cancellation = new СancellationLastInputView();
+            Cancellation = new СancellationLastInputView(new Income());
         }
 
 

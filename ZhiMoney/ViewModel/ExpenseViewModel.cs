@@ -11,6 +11,7 @@ using ZhiMoney.Data;
 using ZhiMoney.DataBase;
 using ZhiMoney.Model;
 using ZhiMoney.View;
+using SWC = System.Windows.Controls;
 
 namespace ZhiMoney.ViewModel
 {
@@ -29,9 +30,28 @@ namespace ZhiMoney.ViewModel
         private IncomeModel incomeModel;
         private ExpenseModel expenseModel;
         private PriceChangeUnitView priceChangeUnit;
+        private СancellationLastInputView cancellation;
+        private SWC.Grid mostFrequentExpensesDashboard;
+        private SWC.Grid mostExpensesDashboard;
 
-        public System.Windows.Controls.Grid MostExpensesDashboard { get; set; }
-        public System.Windows.Controls.Grid MostFrequentExpensesDashboard { get; set; }
+        public SWC.Grid MostExpensesDashboard
+        {
+            get => mostExpensesDashboard;
+            set
+            {
+                mostExpensesDashboard = value;
+                OnPropertyChanged(nameof(MostExpensesDashboard));
+            }
+        }
+        public SWC.Grid MostFrequentExpensesDashboard
+        {
+            get => mostFrequentExpensesDashboard;
+            set
+            {
+                mostFrequentExpensesDashboard = value;
+                OnPropertyChanged(nameof(MostFrequentExpensesDashboard));
+            }
+        }
 
         public ObservableCollection<string> Combobox { get; set; }
         public ObservableCollection<int> ComboboxDate { get; set; }
@@ -83,6 +103,15 @@ namespace ZhiMoney.ViewModel
             {
                 priceChangeUnit = value;
                 OnPropertyChanged(nameof(PriceChangeUnit));
+            }
+        }
+        public СancellationLastInputView Cancellation
+        {
+            get => cancellation;
+            set
+            {
+                cancellation = value;
+                OnPropertyChanged(nameof(Cancellation));
             }
         }
 
@@ -150,19 +179,22 @@ namespace ZhiMoney.ViewModel
 
             prefixTree = new PrefixTree();
 
+            MostExpensesDashboard = new SWC.Grid();
+            MostFrequentExpensesDashboard = new SWC.Grid();
+
             Combobox = expenseModel.Combobox;
+            ComboboxDate = incomeModel.ComboboxDate;
 
             SelectedItem = Combobox[1];
+            SelectedItemDate = ComboboxDate.First();
 
             HintVisibility = Visibility.Hidden;
 
             expenseModel.FillPrefixTree(ref prefixTree);
 
             UpDateChart();
-
-            MostExpensesDashboard = new System.Windows.Controls.Grid();
-            MostExpensesDashboard.Children.Add(new DashboardView(new MostExpensesDashboardModel()));
-            MostFrequentExpensesDashboard = new System.Windows.Controls.Grid();
+           
+            MostExpensesDashboard.Children.Add(new DashboardView(new MostExpensesDashboardModel()));            
             MostFrequentExpensesDashboard.Children.Add(new DashboardView(new MostFrequentExpensesDashboardModel()));
         }
         /// <summary>
@@ -237,6 +269,7 @@ namespace ZhiMoney.ViewModel
                 Child = ChartChild
             };
             PriceChangeUnit = new PriceChangeUnitView("Свободный бюджет", expenseModel);
+            Cancellation = new СancellationLastInputView(new Expense());
         }
 
         #region PropertyChanged

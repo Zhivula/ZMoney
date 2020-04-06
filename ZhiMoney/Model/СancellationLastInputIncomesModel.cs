@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using ZhiMoney.Data;
 using ZhiMoney.DataBase;
 
 namespace ZhiMoney.Model
 {
-    class СancellationLastInputIncomesModel
+    class СancellationLastInputIncomesModel : ICancellation
     {
         public СancellationLastInputIncomesModel()
         {
@@ -24,7 +25,7 @@ namespace ZhiMoney.Model
             }
             MessageBox.Show("Последний элемент был удален!");
         }
-        public Income GetLastElement()
+        public IInputData GetLastElement()
         {
             using (var context = new MyDbContext())
             {
