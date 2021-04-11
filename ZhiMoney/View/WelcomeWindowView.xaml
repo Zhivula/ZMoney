@@ -19,7 +19,12 @@
                     <materialDesign:PackIcon Kind="CloseBox" Foreground="white" Height="25" Width="25"/>
                 </Button>
             </StackPanel>
-            <Label Content="Пользовательские настройки" Foreground="White" FontSize="16" Margin="5 0 0 0" HorizontalAlignment="Left"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding ReturnToMainWindow}">
+                    <materialDesign:PackIcon Kind="ArrowLeft" Foreground="white" Height="25" Width="25"/>
+                </Button>
+                <Label Content="Пользовательские настройки" Foreground="White" FontSize="16" Margin="5 0 0 0" HorizontalAlignment="Left"/>
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>

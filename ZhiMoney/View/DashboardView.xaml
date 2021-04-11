@@ -6,7 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:ZhiMoney.View"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="400">
+             d:DesignHeight="350" d:DesignWidth="400">
     <UserControl.Resources>
         <Style x:Key="DashboardLabel">
             <Setter Property="Control.FontFamily" Value="Calibri" />
@@ -30,11 +30,11 @@
         </EventTrigger>
     </UserControl.Triggers>
 
-    <Grid Margin="5" MaxHeight="300">
+    <Grid Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <!--Эффект цени-->
         <Border CornerRadius="7"  Background="#3F51B5" Grid.RowSpan="3">
@@ -43,54 +43,54 @@
             </Border.Effect>
         </Border>
         <Grid Grid.Row="0">
-            <Border CornerRadius="7 7 0 0" Background="#1F31B5"/>
+            <Border CornerRadius="7 7 0 0" Background="#3F51B5" BorderThickness="0 0 0 1" BorderBrush="White"/>
             <Label Content="{Binding MainTitle}" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer CanContentScroll="True" Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ListBox Grid.Row="1" ItemsSource="{Binding ItemsSource}" IsEnabled="False">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2.5*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Style="{StaticResource DashboardLabel}" Content="{Binding Path=Item1}" Margin="10 2 2 2"/>
+                                    <Label Grid.Column="1" Style="{StaticResource DashboardLabel}" Content="{Binding Path=Item2}" Margin="2 2 10 2"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                <Setter Property="Padding" Value="0"></Setter>
+                                <Setter Property="Margin" Value="0"></Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </ScrollViewer>
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <ListBox Grid.Row="1" ItemsSource="{Binding ItemsSource}" IsEnabled="False">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2.5*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Style="{StaticResource DashboardLabel}" Content="{Binding Path=Item1}" Margin="10 2 2 2"/>
-                                <Label Grid.Column="1" Style="{StaticResource DashboardLabel}" Content="{Binding Path=Item2}" Margin="2 2 10 2"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                            <Setter Property="Padding" Value="0"></Setter>
-                            <Setter Property="Margin" Value="0"></Setter>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2.5*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label HorizontalAlignment="Left" Foreground="White" VerticalAlignment="Top" FontFamily="Calibri" FontSize="14" Content="{Binding LeftTitle}"  Margin="10 0 0 0"/>
-                    <Label Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding RightTitle}" Margin="0 0 10 0" FontFamily="Calibri" FontSize="14" Foreground="White"/>
-                </Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label HorizontalAlignment="Left" Foreground="White" VerticalAlignment="Top" FontFamily="Calibri" FontSize="14" Content="{Binding LeftTitle}"  Margin="10 0 0 0"/>
+                <Label Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding RightTitle}" Margin="0 0 10 0" FontFamily="Calibri" FontSize="14" Foreground="White"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="2">
             <Border CornerRadius="0 0 7 7" Background="#3F51B5" Style="{x:Null}" BorderThickness="0 1 0 0" BorderBrush="CadetBlue">
                 <Button Command="{Binding ShowEverything}" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0">
-                    <StackPanel>
+                    <StackPanel Orientation="Horizontal" RenderTransformOrigin="0.5 0.5">
                         <StackPanel.RenderTransform>
-                            <RotateTransform x:Name="IconTransform" CenterY="-7" CenterX="7"/>
+                            <RotateTransform x:Name="IconTransform"/>
                         </StackPanel.RenderTransform>
-                        <materialDesign:PackIcon x:Name="Icon" Kind="ChevronDown" Width="28" Height="28" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Margin="-10 -20"/>
+                        <materialDesign:PackIcon x:Name="Icon" Kind="ChevronDown" Width="28" Height="28" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White"/>
                     </StackPanel>
                 </Button>
             </Border>

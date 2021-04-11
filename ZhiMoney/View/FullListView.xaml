@@ -1,0 +1,76 @@
+﻿<Window x:Class="ZhiMoney.View.FullListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZhiMoney.View"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="FullListView" Height="450" Width="400" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}">
+    <Window.Resources>
+        <Style x:Key="DashboardLabel">
+            <Setter Property="Control.FontFamily" Value="Calibri" />
+            <Setter Property="Control.FontSize" Value="16" />
+            <Setter Property="Control.Background" Value="White" />
+            <Setter Property="Control.Padding" Value="5 3 0 0" />
+            <Setter Property="Control.Foreground" Value="#FF4C4C4C"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" MouseDown="Grid_MouseDown">
+            <Border CornerRadius="10 10 0 0" Background="#303F9F" BorderThickness="0 0 0 2" BorderBrush="White"/>
+            <TextBlock Text="Полный список" Foreground="White" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15 0"/>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Command="{Binding CloseWindow}">
+                    <Border BorderBrush="#303F9F">
+                        <materialDesign:PackIcon Kind="Close" Height="30" Width="30" Foreground="White" />
+                    </Border>
+                </Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Border CornerRadius="0 0 10 10" Background="#303F9F"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" HorizontalAlignment="Left" Foreground="White" VerticalAlignment="Top" FontFamily="Calibri" FontSize="14" Content="{Binding LeftTitle}"  Margin="30 0 0 0"/>
+                    <Label Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding RightTitle}" Margin="0 0 30 0" FontFamily="Calibri" FontSize="14" Foreground="White"/>
+                </Grid>
+                <ScrollViewer Margin="0 0 0 10" Grid.Row="1">
+                    <ListBox Grid.Row="1" ItemsSource="{Binding ItemsSource}" IsEnabled="False">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2.5*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Style="{StaticResource DashboardLabel}" Content="{Binding Path=Item1}" Margin="10 2 2 2"/>
+                                    <Label Grid.Column="1" Style="{StaticResource DashboardLabel}" Content="{Binding Path=Item2}" Margin="2 2 10 2"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                <Setter Property="Padding" Value="0"></Setter>
+                                <Setter Property="Margin" Value="0"></Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </ScrollViewer>
+
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</Window>

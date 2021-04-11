@@ -100,6 +100,7 @@
     <Compile Include="Model\СancellationLastInputIncomesModel.cs" />
     <Compile Include="ViewModel\CalculatorViewModel.cs" />
     <Compile Include="ViewModel\DashboardViewModel.cs" />
+    <Compile Include="ViewModel\FullListViewModel.cs" />
     <Compile Include="ViewModel\JournalViewModel.cs" />
     <Compile Include="ViewModel\PriceChangeUnitViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
@@ -110,6 +111,9 @@
     </Compile>
     <Compile Include="View\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FullListView.xaml.cs">
+      <DependentUpon>FullListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\JournalView.xaml.cs">
       <DependentUpon>JournalView.xaml</DependentUpon>
@@ -135,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ExpenseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FullListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

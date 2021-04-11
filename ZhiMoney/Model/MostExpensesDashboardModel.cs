@@ -12,7 +12,7 @@ namespace ZhiMoney.Model
     {
         public MostExpensesDashboardModel()
         {
-            mainTitle = "Самые доходные";
+            mainTitle = "Наибольшие расходы";
             leftTitle = "Наименование";
             rightTitle = "Сумма(р.)";
 

@@ -27,6 +27,7 @@ namespace ZhiMoney.ViewModel
         public DelegateCommand Next { get; set; }
         public DelegateCommand PathToPhotoUser { get; set; }
         public DelegateCommand MouseDown { get; set; }
+        public DelegateCommand ReturnToMainWindow { get; set; }
 
         private string name;
         private string surname;
@@ -76,6 +77,8 @@ namespace ZhiMoney.ViewModel
             window = Application.Current.Windows.OfType<WelcomeWindowView>().FirstOrDefault();
             SuccessfullyPanel = Visibility.Hidden;
             Next = new DelegateCommand(o => NextPage(),c=> pathPhoto != null);
+            ReturnToMainWindow = new DelegateCommand(o => ReturnToMainWindowPage(), c=> 
+            (Settings.Default["SurnameUser"] != null) || (Settings.Default["NameUser"] != null) || (Settings.Default["PathPhotoUser"] != null));
             CloseWindow = new DelegateCommand(o => Close());
             PathToPhotoUser = new DelegateCommand(o => SearchPathToPhotoUser());
             MouseDown = new DelegateCommand(o => Move());
@@ -95,6 +98,15 @@ namespace ZhiMoney.ViewModel
 
             mainwindow.Show();
 
+            Close();
+        }
+        /// <summary>
+        /// Переход к основному окну приложения без сохранения внесенных данных.
+        /// </summary>
+        private void ReturnToMainWindowPage()
+        {
+            MainWindow mainwindow = new MainWindow();
+            mainwindow.Show();
             Close();
         }
         /// <summary>

@@ -195,9 +195,6 @@ namespace ZhiMoney.ViewModel
             incomeModel.FillPrefixTree(ref prefixTree);
 
             UpDateChart();
-
-            MostIncomesDashboard.Children.Add(new DashboardView(new MostIncomesDashboardModel()));
-            MostFrequentIncomesDashboard.Children.Add(new DashboardView(new MostFrequentIncomesDashboardModel()));
         }
         /// <summary>
         /// Добавление записи о доходе в базу данных 
@@ -264,6 +261,10 @@ namespace ZhiMoney.ViewModel
             };
             PriceChangeUnit = new PriceChangeUnitView("Свободный бюджет", incomeModel);
             Cancellation = new СancellationLastInputView(new Income());
+            MostIncomesDashboard.Children.Clear();
+            MostFrequentIncomesDashboard.Children.Clear();
+            MostIncomesDashboard.Children.Add(new DashboardView(new MostIncomesDashboardModel()));
+            MostFrequentIncomesDashboard.Children.Add(new DashboardView(new MostFrequentIncomesDashboardModel()));
         }
 
 

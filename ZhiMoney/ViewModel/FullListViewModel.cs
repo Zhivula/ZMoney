@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using ZhiMoney.Data;
 using ZhiMoney.Model;
+using ZhiMoney.View;
 
 namespace ZhiMoney.ViewModel
 {
-    class DashboardViewModel : INotifyPropertyChanged
+    class FullListViewModel : INotifyPropertyChanged
     {
+        FullListView window;
+        public DelegateCommand CloseWindow { get; set; }
         public string MainTitle { get; set; }
         public string LeftTitle { get; set; }
         public string RightTitle { get; set; }
@@ -28,40 +27,30 @@ namespace ZhiMoney.ViewModel
             set
             {
                 items = value;
-                OnPropertyChanged(nameof(ItemsSource));                
+                OnPropertyChanged(nameof(ItemsSource));
             }
         }
-
-        private Dashboard dashboard;
-
-        public DashboardViewModel(Dashboard dashboard)
+        public FullListViewModel(Dashboard dashboard)
         {
             MainTitle = dashboard.mainTitle;
             LeftTitle = dashboard.leftTitle;
             RightTitle = dashboard.rightTitle;
-            this.dashboard = dashboard;
-            if (dashboard.Names.Count() >= 5)
-            {
-                ItemsSource = new Tuple<string, string>[5];
-                for (int i = 0; i < 5; i++)
-                {
-                    ItemsSource[i] = new Tuple<string, string>(dashboard.Names[i], dashboard.Values[i].ToString("#.##"));
-                }
-            }
-            else if(dashboard.Names.Count() >= 1)
+            window = Application.Current.Windows.OfType<FullListView>().FirstOrDefault();
+
+            if (dashboard.Names.Count() >= 1)
             {
                 ItemsSource = new Tuple<string, string>[dashboard.Names.Count()];
                 for (int i = 0; i < dashboard.Names.Count(); i++)
                 {
-                    ItemsSource[i] = new Tuple<string, string>(dashboard.Names[i], dashboard.Values[i].ToString("#.##"));
+                    ItemsSource[i] = new Tuple<string, string>(dashboard.Names[i], dashboard.Values[i].ToString("##.##"));
                 }
             }
-            else ItemsSource[0] = new Tuple<string, string>("-", "0");
+
+            CloseWindow = new DelegateCommand(o => window.Close());
         }
-        public ICommand ShowEverything => new DelegateCommand(o =>
+        public ICommand Move => new DelegateCommand(o =>
         {
-            var welcomewindow = new View.FullListView(dashboard);
-            welcomewindow.Show();
+            window.DragMove();
         });
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

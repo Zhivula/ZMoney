@@ -13,17 +13,17 @@ namespace ZhiMoney.ViewModel
 {
     class PriceChangeUnitViewModel : INotifyPropertyChanged
     {
-        private float currentSumma;
-        private float weeklyPriceChange;
-        private float monthlyPriceChange;
-        private float oneYearPriceChange;
+        private string currentSumma;
+        private string weeklyPriceChange;
+        private string monthlyPriceChange;
+        private string oneYearPriceChange;
         private PackIcon weekPackIcon;
         private PackIcon monthPackIcon;
         private PackIcon yearPackIcon;
 
         public string Title { get; set; }
 
-        public float CurrentSumma
+        public string CurrentSumma
         {
             get => currentSumma;
             set
@@ -32,7 +32,7 @@ namespace ZhiMoney.ViewModel
                 OnPropertyChanged(nameof(CurrentSumma));
             }
         }
-        public float WeeklyPriceChange
+        public string WeeklyPriceChange
         {
             get => weeklyPriceChange;
             set
@@ -41,7 +41,7 @@ namespace ZhiMoney.ViewModel
                 OnPropertyChanged(nameof(WeeklyPriceChange));
             }
         }
-        public float MonthlyPriceChange
+        public string MonthlyPriceChange
         {
             get => monthlyPriceChange;
             set
@@ -50,7 +50,7 @@ namespace ZhiMoney.ViewModel
                 OnPropertyChanged(nameof(MonthlyPriceChange));
             }
         }
-        public float OneYearPriceChange
+        public string OneYearPriceChange
         {
             get => oneYearPriceChange;
             set
@@ -98,12 +98,12 @@ namespace ZhiMoney.ViewModel
             YearPackIcon = new PackIcon();
 
             model.AlgorthmSort(out DateTime[] date, out float[] summa, 7);
-            WeeklyPriceChange = summa.Sum();
+            WeeklyPriceChange = summa.Sum().ToString("#.##");
             model.AlgorthmSort(out date,out summa, 30);
-            MonthlyPriceChange = summa.Sum();
+            MonthlyPriceChange = summa.Sum().ToString("#.##");
             model.AlgorthmSort(out date, out summa, 360);
-            OneYearPriceChange = summa.Sum();
-            CurrentSumma = model.GetCurrentSumma();
+            OneYearPriceChange = summa.Sum().ToString("#.##");
+            CurrentSumma = model.GetCurrentSumma().ToString("#.##");
 
             if (model is IncomeModel)
             {

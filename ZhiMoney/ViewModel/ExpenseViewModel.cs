@@ -130,6 +130,10 @@ namespace ZhiMoney.ViewModel
                         HintVisibility = Visibility.Visible;
                         HintName = hintName;
                     }
+                    else
+                    {
+                        HintName = string.Empty;
+                    }
                 }
                 else
                 {
@@ -192,10 +196,7 @@ namespace ZhiMoney.ViewModel
 
             expenseModel.FillPrefixTree(ref prefixTree);
 
-            UpDateChart();
-           
-            MostExpensesDashboard.Children.Add(new DashboardView(new MostExpensesDashboardModel()));            
-            MostFrequentExpensesDashboard.Children.Add(new DashboardView(new MostFrequentExpensesDashboardModel()));
+            UpDateChart();                   
         }
         /// <summary>
         /// Добавление записи о расходе в базу данных.
@@ -270,6 +271,10 @@ namespace ZhiMoney.ViewModel
             };
             PriceChangeUnit = new PriceChangeUnitView("Свободный бюджет", expenseModel);
             Cancellation = new СancellationLastInputView(new Expense());
+            MostExpensesDashboard.Children.Clear();
+            MostFrequentExpensesDashboard.Children.Clear();
+            MostExpensesDashboard.Children.Add(new DashboardView(new MostExpensesDashboardModel()));
+            MostFrequentExpensesDashboard.Children.Add(new DashboardView(new MostFrequentExpensesDashboardModel()));
         }
 
         #region PropertyChanged
