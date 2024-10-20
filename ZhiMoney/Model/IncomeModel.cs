@@ -47,6 +47,7 @@ namespace ZhiMoney.Model
             }
             return list;
         }
+
         /// <summary>
         /// Возвращает список с суммами, которые вносились пользователем.
         /// </summary>
